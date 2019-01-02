@@ -12,6 +12,7 @@ namespace SistemWalter.Controllers
 {
 
     //[Authorize(Roles = "")]      //Esta linea de codigo representa las autorizaciones y roles de usuarios 
+    //co
     public class ConfiguracionesController : Controller
     {
         private SistemadeAguaEntities db = new SistemadeAguaEntities();
