@@ -236,9 +236,17 @@
       <DependentUpon>BaseSW.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ConfiguracionesController.cs" />
+    <Compile Include="Controllers\EmpleadoesController.cs" />
+    <Compile Include="Controllers\EmpresasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InscripcionesController.cs" />
+    <Compile Include="Controllers\LecturasController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MoraClientesController.cs" />
+    <Compile Include="Controllers\PagoesController.cs" />
+    <Compile Include="Controllers\PagoInscripcionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -331,6 +339,46 @@
     <Content Include="Views\Configuraciones\Details.cshtml" />
     <Content Include="Views\Configuraciones\Edit.cshtml" />
     <Content Include="Views\Configuraciones\Index.cshtml" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Empleadoes\Create.cshtml" />
+    <Content Include="Views\Empleadoes\Delete.cshtml" />
+    <Content Include="Views\Empleadoes\Details.cshtml" />
+    <Content Include="Views\Empleadoes\Edit.cshtml" />
+    <Content Include="Views\Empleadoes\Index.cshtml" />
+    <Content Include="Views\Empresas\Create.cshtml" />
+    <Content Include="Views\Empresas\Delete.cshtml" />
+    <Content Include="Views\Empresas\Details.cshtml" />
+    <Content Include="Views\Empresas\Edit.cshtml" />
+    <Content Include="Views\Empresas\Index.cshtml" />
+    <Content Include="Views\Inscripciones\Create.cshtml" />
+    <Content Include="Views\Inscripciones\Delete.cshtml" />
+    <Content Include="Views\Inscripciones\Details.cshtml" />
+    <Content Include="Views\Inscripciones\Edit.cshtml" />
+    <Content Include="Views\Inscripciones\Index.cshtml" />
+    <Content Include="Views\Lecturas\Create.cshtml" />
+    <Content Include="Views\Lecturas\Delete.cshtml" />
+    <Content Include="Views\Lecturas\Details.cshtml" />
+    <Content Include="Views\Lecturas\Edit.cshtml" />
+    <Content Include="Views\Lecturas\Index.cshtml" />
+    <Content Include="Views\Pagoes\Create.cshtml" />
+    <Content Include="Views\Pagoes\Delete.cshtml" />
+    <Content Include="Views\Pagoes\Details.cshtml" />
+    <Content Include="Views\Pagoes\Edit.cshtml" />
+    <Content Include="Views\Pagoes\Index.cshtml" />
+    <Content Include="Views\MoraClientes\Create.cshtml" />
+    <Content Include="Views\MoraClientes\Delete.cshtml" />
+    <Content Include="Views\MoraClientes\Details.cshtml" />
+    <Content Include="Views\MoraClientes\Edit.cshtml" />
+    <Content Include="Views\MoraClientes\Index.cshtml" />
+    <Content Include="Views\PagoInscripcions\Create.cshtml" />
+    <Content Include="Views\PagoInscripcions\Delete.cshtml" />
+    <Content Include="Views\PagoInscripcions\Details.cshtml" />
+    <Content Include="Views\PagoInscripcions\Edit.cshtml" />
+    <Content Include="Views\PagoInscripcions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

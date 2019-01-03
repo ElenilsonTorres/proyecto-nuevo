@@ -10,110 +10,116 @@ using SistemWalter.Context;
 
 namespace SistemWalter.Controllers
 {
-
-    [Authorize/*(Roles = "")*/]      //Esta linea de codigo representa las autorizaciones y roles de usuarios 
-    //co
-    public class ConfiguracionesController : Controller
+    public class PagoInscripcionsController : Controller
     {
         private SistemadeAguaEntities db = new SistemadeAguaEntities();
 
-        // GET: Configuraciones
+        // GET: PagoInscripcions
         public ActionResult Index()
         {
-            return View(db.Configuraciones.ToList());
+            var pagoInscripcions = db.PagoInscripcions.Include(p => p.Cliente).Include(p => p.Inscripcione);
+            return View(pagoInscripcions.ToList());
         }
 
-        // GET: Configuraciones/Details/5
+        // GET: PagoInscripcions/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            PagoInscripcion pagoInscripcion = db.PagoInscripcions.Find(id);
+            if (pagoInscripcion == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(pagoInscripcion);
         }
 
-        // GET: Configuraciones/Create
+        // GET: PagoInscripcions/Create
         public ActionResult Create()
         {
+            ViewBag.Cliente_Id = new SelectList(db.Clientes, "Id", "Nombre_Completo");
+            ViewBag.InscripcionId = new SelectList(db.Inscripciones, "Id", "Estado");
             return View();
         }
 
-        // POST: Configuraciones/Create
+        // POST: PagoInscripcions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Couta_Fija,Mora,Valor_Metro,Valor_Metro2,Valor_Metro3,Multa,Detalle,Estado,Fecha_Registro")] Configuracione configuracione)
+        public ActionResult Create([Bind(Include = "Id,InscripcionId,Monto,Fecha,Estado,Cliente_Id")] PagoInscripcion pagoInscripcion)
         {
             if (ModelState.IsValid)
             {
-                db.Configuraciones.Add(configuracione);
+                db.PagoInscripcions.Add(pagoInscripcion);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(configuracione);
+            ViewBag.Cliente_Id = new SelectList(db.Clientes, "Id", "Nombre_Completo", pagoInscripcion.Cliente_Id);
+            ViewBag.InscripcionId = new SelectList(db.Inscripciones, "Id", "Estado", pagoInscripcion.InscripcionId);
+            return View(pagoInscripcion);
         }
 
-        // GET: Configuraciones/Edit/5
+        // GET: PagoInscripcions/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            PagoInscripcion pagoInscripcion = db.PagoInscripcions.Find(id);
+            if (pagoInscripcion == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            ViewBag.Cliente_Id = new SelectList(db.Clientes, "Id", "Nombre_Completo", pagoInscripcion.Cliente_Id);
+            ViewBag.InscripcionId = new SelectList(db.Inscripciones, "Id", "Estado", pagoInscripcion.InscripcionId);
+            return View(pagoInscripcion);
         }
 
-        // POST: Configuraciones/Edit/5
+        // POST: PagoInscripcions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Couta_Fija,Mora,Valor_Metro,Valor_Metro2,Valor_Metro3,Multa,Detalle,Estado,Fecha_Registro")] Configuracione configuracione)
+        public ActionResult Edit([Bind(Include = "Id,InscripcionId,Monto,Fecha,Estado,Cliente_Id")] PagoInscripcion pagoInscripcion)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(configuracione).State = EntityState.Modified;
+                db.Entry(pagoInscripcion).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(configuracione);
+            ViewBag.Cliente_Id = new SelectList(db.Clientes, "Id", "Nombre_Completo", pagoInscripcion.Cliente_Id);
+            ViewBag.InscripcionId = new SelectList(db.Inscripciones, "Id", "Estado", pagoInscripcion.InscripcionId);
+            return View(pagoInscripcion);
         }
 
-        // GET: Configuraciones/Delete/5
+        // GET: PagoInscripcions/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            PagoInscripcion pagoInscripcion = db.PagoInscripcions.Find(id);
+            if (pagoInscripcion == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(pagoInscripcion);
         }
 
-        // POST: Configuraciones/Delete/5
+        // POST: PagoInscripcions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            db.Configuraciones.Remove(configuracione);
+            PagoInscripcion pagoInscripcion = db.PagoInscripcions.Find(id);
+            db.PagoInscripcions.Remove(pagoInscripcion);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

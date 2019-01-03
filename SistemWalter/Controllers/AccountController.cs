@@ -12,7 +12,7 @@ using SistemWalter.Models;
 
 namespace SistemWalter.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

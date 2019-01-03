@@ -10,110 +10,112 @@ using SistemWalter.Context;
 
 namespace SistemWalter.Controllers
 {
-
-    [Authorize/*(Roles = "")*/]      //Esta linea de codigo representa las autorizaciones y roles de usuarios 
-    //co
-    public class ConfiguracionesController : Controller
+    public class LecturasController : Controller
     {
         private SistemadeAguaEntities db = new SistemadeAguaEntities();
 
-        // GET: Configuraciones
+        // GET: Lecturas
         public ActionResult Index()
         {
-            return View(db.Configuraciones.ToList());
+            var lecturas = db.Lecturas.Include(l => l.Cliente);
+            return View(lecturas.ToList());
         }
 
-        // GET: Configuraciones/Details/5
+        // GET: Lecturas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            Lectura lectura = db.Lecturas.Find(id);
+            if (lectura == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(lectura);
         }
 
-        // GET: Configuraciones/Create
+        // GET: Lecturas/Create
         public ActionResult Create()
         {
+            ViewBag.ClientesId = new SelectList(db.Clientes, "Id", "Nombre_Completo");
             return View();
         }
 
-        // POST: Configuraciones/Create
+        // POST: Lecturas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Couta_Fija,Mora,Valor_Metro,Valor_Metro2,Valor_Metro3,Multa,Detalle,Estado,Fecha_Registro")] Configuracione configuracione)
+        public ActionResult Create([Bind(Include = "Id,Lectura1,Estado_Lectura,Estado,Fecha_Registro,Mes,ClientesId")] Lectura lectura)
         {
             if (ModelState.IsValid)
             {
-                db.Configuraciones.Add(configuracione);
+                db.Lecturas.Add(lectura);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(configuracione);
+            ViewBag.ClientesId = new SelectList(db.Clientes, "Id", "Nombre_Completo", lectura.ClientesId);
+            return View(lectura);
         }
 
-        // GET: Configuraciones/Edit/5
+        // GET: Lecturas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            Lectura lectura = db.Lecturas.Find(id);
+            if (lectura == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            ViewBag.ClientesId = new SelectList(db.Clientes, "Id", "Nombre_Completo", lectura.ClientesId);
+            return View(lectura);
         }
 
-        // POST: Configuraciones/Edit/5
+        // POST: Lecturas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Couta_Fija,Mora,Valor_Metro,Valor_Metro2,Valor_Metro3,Multa,Detalle,Estado,Fecha_Registro")] Configuracione configuracione)
+        public ActionResult Edit([Bind(Include = "Id,Lectura1,Estado_Lectura,Estado,Fecha_Registro,Mes,ClientesId")] Lectura lectura)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(configuracione).State = EntityState.Modified;
+                db.Entry(lectura).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(configuracione);
+            ViewBag.ClientesId = new SelectList(db.Clientes, "Id", "Nombre_Completo", lectura.ClientesId);
+            return View(lectura);
         }
 
-        // GET: Configuraciones/Delete/5
+        // GET: Lecturas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            Lectura lectura = db.Lecturas.Find(id);
+            if (lectura == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(lectura);
         }
 
-        // POST: Configuraciones/Delete/5
+        // POST: Lecturas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            db.Configuraciones.Remove(configuracione);
+            Lectura lectura = db.Lecturas.Find(id);
+            db.Lecturas.Remove(lectura);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

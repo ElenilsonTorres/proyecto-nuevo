@@ -10,110 +10,107 @@ using SistemWalter.Context;
 
 namespace SistemWalter.Controllers
 {
-
-    [Authorize/*(Roles = "")*/]      //Esta linea de codigo representa las autorizaciones y roles de usuarios 
-    //co
-    public class ConfiguracionesController : Controller
+    public class ClientesController : Controller
     {
         private SistemadeAguaEntities db = new SistemadeAguaEntities();
 
-        // GET: Configuraciones
+        // GET: Clientes
         public ActionResult Index()
         {
-            return View(db.Configuraciones.ToList());
+            return View(db.Clientes.ToList());
         }
 
-        // GET: Configuraciones/Details/5
+        // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            Cliente cliente = db.Clientes.Find(id);
+            if (cliente == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(cliente);
         }
 
-        // GET: Configuraciones/Create
+        // GET: Clientes/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Configuraciones/Create
+        // POST: Clientes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Couta_Fija,Mora,Valor_Metro,Valor_Metro2,Valor_Metro3,Multa,Detalle,Estado,Fecha_Registro")] Configuracione configuracione)
+        public ActionResult Create([Bind(Include = "Id,Nombre_Completo,DUI,Telefono,Correo,Direccion,Fecha_Nacimiento,Estado,Fecha_Registro")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                db.Configuraciones.Add(configuracione);
+                db.Clientes.Add(cliente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(configuracione);
+            return View(cliente);
         }
 
-        // GET: Configuraciones/Edit/5
+        // GET: Clientes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            Cliente cliente = db.Clientes.Find(id);
+            if (cliente == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(cliente);
         }
 
-        // POST: Configuraciones/Edit/5
+        // POST: Clientes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Couta_Fija,Mora,Valor_Metro,Valor_Metro2,Valor_Metro3,Multa,Detalle,Estado,Fecha_Registro")] Configuracione configuracione)
+        public ActionResult Edit([Bind(Include = "Id,Nombre_Completo,DUI,Telefono,Correo,Direccion,Fecha_Nacimiento,Estado,Fecha_Registro")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(configuracione).State = EntityState.Modified;
+                db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(configuracione);
+            return View(cliente);
         }
 
-        // GET: Configuraciones/Delete/5
+        // GET: Clientes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            Cliente cliente = db.Clientes.Find(id);
+            if (cliente == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(cliente);
         }
 
-        // POST: Configuraciones/Delete/5
+        // POST: Clientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            db.Configuraciones.Remove(configuracione);
+            Cliente cliente = db.Clientes.Find(id);
+            db.Clientes.Remove(cliente);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

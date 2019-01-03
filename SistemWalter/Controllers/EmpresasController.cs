@@ -10,110 +10,107 @@ using SistemWalter.Context;
 
 namespace SistemWalter.Controllers
 {
-
-    [Authorize/*(Roles = "")*/]      //Esta linea de codigo representa las autorizaciones y roles de usuarios 
-    //co
-    public class ConfiguracionesController : Controller
+    public class EmpresasController : Controller
     {
         private SistemadeAguaEntities db = new SistemadeAguaEntities();
 
-        // GET: Configuraciones
+        // GET: Empresas
         public ActionResult Index()
         {
-            return View(db.Configuraciones.ToList());
+            return View(db.Empresas.ToList());
         }
 
-        // GET: Configuraciones/Details/5
+        // GET: Empresas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            Empresa empresa = db.Empresas.Find(id);
+            if (empresa == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(empresa);
         }
 
-        // GET: Configuraciones/Create
+        // GET: Empresas/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Configuraciones/Create
+        // POST: Empresas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Couta_Fija,Mora,Valor_Metro,Valor_Metro2,Valor_Metro3,Multa,Detalle,Estado,Fecha_Registro")] Configuracione configuracione)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Direccion,Correo,NIT,Rubro,Telefono,Estado,Fecha_Registro")] Empresa empresa)
         {
             if (ModelState.IsValid)
             {
-                db.Configuraciones.Add(configuracione);
+                db.Empresas.Add(empresa);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(configuracione);
+            return View(empresa);
         }
 
-        // GET: Configuraciones/Edit/5
+        // GET: Empresas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            Empresa empresa = db.Empresas.Find(id);
+            if (empresa == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(empresa);
         }
 
-        // POST: Configuraciones/Edit/5
+        // POST: Empresas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Couta_Fija,Mora,Valor_Metro,Valor_Metro2,Valor_Metro3,Multa,Detalle,Estado,Fecha_Registro")] Configuracione configuracione)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Direccion,Correo,NIT,Rubro,Telefono,Estado,Fecha_Registro")] Empresa empresa)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(configuracione).State = EntityState.Modified;
+                db.Entry(empresa).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(configuracione);
+            return View(empresa);
         }
 
-        // GET: Configuraciones/Delete/5
+        // GET: Empresas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            if (configuracione == null)
+            Empresa empresa = db.Empresas.Find(id);
+            if (empresa == null)
             {
                 return HttpNotFound();
             }
-            return View(configuracione);
+            return View(empresa);
         }
 
-        // POST: Configuraciones/Delete/5
+        // POST: Empresas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Configuracione configuracione = db.Configuraciones.Find(id);
-            db.Configuraciones.Remove(configuracione);
+            Empresa empresa = db.Empresas.Find(id);
+            db.Empresas.Remove(empresa);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
