@@ -17,7 +17,9 @@ namespace SistemWalter.Controllers
         // GET: Pagoes
         public ActionResult Index()
         {
-            var pagos = db.Pagos.Include(p => p.Cliente).Include(p => p.Lectura);
+            var pagos = (from p in db.Pagos 
+                         where p.Estado== 1
+                         select p);
             return View(pagos.ToList());
         }
 
@@ -85,10 +87,19 @@ namespace SistemWalter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Lectura_Id,ClienteId,Numero_Factura,Lectura_Anterior,Lectura_Actual,Consumo,Cuota_Fija,Mes_Atrasado,Mora,Total,Fecha_Lectura,Fecha_Pago,Estado,Fecha_Registro")] Pago pago)
+        public ActionResult Edit([Bind(Include = "Id,Lectura_Id,ClienteId,Numero_Factura,Lectura_Anterior,Lectura_Actual,Consumo,Cuota_Fija,Mes_Atrasado,Mora,Total,Fecha_Lectura,Fecha_Pago,Estado,Fecha_Registro")] Pago pago, string Estad)
         {
             if (ModelState.IsValid)
             {
+                if(Estad == "1")
+                {
+                    pago.Estado = 1;
+
+                }
+                else
+                {
+                    pago.Estado = 0;
+                }
                 db.Entry(pago).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -126,7 +137,7 @@ namespace SistemWalter.Controllers
 
         public ActionResult Asignarpago(int? id)
         {
-            if (id== null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadGateway);
             }
@@ -141,13 +152,111 @@ namespace SistemWalter.Controllers
             ViewBag.Lectura_Id = new SelectList(db.Lecturas, "Id", "Estado_Lectura", lectura.Id);
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nombre_Completo", lectura.ClientesId);
 
-            var lec_ant = (from l in db.Lecturas
-                           where l.ClientesId == lectura.ClientesId
-                           orderby l.Id descending
-                           select l.Lectura1).FirstOrDefault();
-            return View();
+            var ultimas_lecturas = (from l in db.Lecturas
+                                    where l.ClientesId == lectura.ClientesId
+                                    orderby l.Id descending
+                                    select l.Lectura1).Take(2).ToList();
+
+            var lec_ant = ultimas_lecturas[1];
+
+            var cuota_fija = (from c in db.Configuraciones
+                              select c.Couta_Fija).FirstOrDefault();
+
+            var metro1 = (from c in db.Configuraciones
+                          select c.Valor_Metro).FirstOrDefault();
+
+            var metro2 = (from c in db.Configuraciones
+                          select c.Valor_Metro2).FirstOrDefault();
+
+            var metro3 = (from c in db.Configuraciones
+                          select c.Valor_Metro3).FirstOrDefault();
+
+
+            var consumo = lectura.Lectura1 - lec_ant;
+
+            var moras = (from m in db.MoraClientes
+                         where m.ClienteId == lectura.ClientesId && m.Estado==0
+                         select m.Total).Sum();
+
+            var pagopendiente = (from p in db.Pagos
+                                 where p.ClienteId == lectura.ClientesId && p.Estado == 1
+                                 select p.Total).Sum();
+            decimal total = 0;
+
+            if (consumo < 13)
+            {
+                if (pagopendiente != null)
+                {
+                    total = Convert.ToDecimal((consumo * metro1) + moras + pagopendiente + cuota_fija);
+                }
+
+                else
+                {
+                    total = Convert.ToDecimal((consumo * metro1) + moras + cuota_fija);
+                }
+                    
+            }
+
+            else if (consumo >= 13 && consumo < 20)
+            {
+                if (pagopendiente != null)
+                {
+                    total = Convert.ToDecimal((consumo * metro2) + moras + pagopendiente + cuota_fija);
+                }
+
+                else
+                {
+                    total = Convert.ToDecimal((consumo * metro2) + moras + cuota_fija);
+                }
+            }
+
+            else if (consumo >= 20)
+            {
+                if (pagopendiente != null)
+                {
+                    total = Convert.ToDecimal((consumo * metro3) + moras + pagopendiente + cuota_fija);
+                }
+
+                else
+                {
+                    total = Convert.ToDecimal((consumo * metro3) + moras + cuota_fija);
+                }
+            }
+            
+            Pago pago = new Pago();
+
+            if (pagopendiente != null)
+            {
+                pago.Mes_Atrasado = pagopendiente;
+            }
+            pago.Lectura_Anterior = lec_ant;
+            pago.Lectura_Actual = lectura.Lectura1;
+            pago.Consumo = lectura.Lectura1 - lec_ant;
+            pago.Mora = moras;
+            pago.Total = total;
+            pago.Cuota_Fija = cuota_fija;
+            pago.Fecha_Lectura = lectura.Fecha_Registro;
+            return View("Create", pago);
         }
- 
+        [HttpPost]
+        public ActionResult Asignarpago(Pago pagos)
+        {
+            try
+            {
+                pagos.Estado = 1;
+                pagos.Fecha_Registro = DateTime.Now;
+                db.Pagos.Add(pagos);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

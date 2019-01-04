@@ -18,6 +18,8 @@ namespace SistemWalter.Context
         public Nullable<int> ClienteId { get; set; }
         public Nullable<int> Meses { get; set; }
         public Nullable<decimal> Total { get; set; }
+        public Nullable<int> Estado { get; set; }
+        public Nullable<System.DateTime> Fecha_Registro { get; set; }
     
         public virtual Cliente Cliente { get; set; }
     }

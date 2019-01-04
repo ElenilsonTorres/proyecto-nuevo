@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SistemadeAguaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SistemadeAguaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -160,6 +160,8 @@
           <Property Name="ClienteId" Type="int" />
           <Property Name="Meses" Type="int" />
           <Property Name="Total" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Estado" Type="int" />
+          <Property Name="Fecha_Registro" Type="date" />
         </EntityType>
         <EntityType Name="PagoInscripcion">
           <Key>
@@ -420,8 +422,7 @@
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SistemadeAguaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -590,6 +591,8 @@
           <Property Name="Meses" Type="Int32" />
           <Property Name="Total" Type="Decimal" Precision="5" Scale="2" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK__MoraClien__Clien__48CFD27E" FromRole="MoraClientes" ToRole="Clientes" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="Fecha_Registro" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="PagoInscripcion">
           <Key>
@@ -981,6 +984,8 @@
           <EntitySetMapping Name="MoraClientes">
             <EntityTypeMapping TypeName="SistemadeAguaModel.MoraCliente">
               <MappingFragment StoreEntitySet="MoraClientes">
+                <ScalarProperty Name="Fecha_Registro" ColumnName="Fecha_Registro" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
                 <ScalarProperty Name="Meses" ColumnName="Meses" />

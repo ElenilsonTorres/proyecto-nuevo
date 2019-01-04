@@ -52,6 +52,12 @@ namespace SistemWalter.Controllers
         {
             if (ModelState.IsValid)
             {
+                var mora = (from m in db.Configuraciones
+                            select m.Mora).FirstOrDefault();
+
+                moraCliente.Total = mora * moraCliente.Meses;
+                moraCliente.Fecha_Registro = DateTime.Now;
+                moraCliente.Estado = 0;
                 db.MoraClientes.Add(moraCliente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,6 +92,11 @@ namespace SistemWalter.Controllers
         {
             if (ModelState.IsValid)
             {
+                var mora = (from m in db.Configuraciones
+                            select m.Mora).FirstOrDefault();
+
+                moraCliente.Total = mora * moraCliente.Meses;
+
                 db.Entry(moraCliente).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
