@@ -379,6 +379,7 @@
     <Content Include="Views\PagoInscripcions\Details.cshtml" />
     <Content Include="Views\PagoInscripcions\Edit.cshtml" />
     <Content Include="Views\PagoInscripcions\Index.cshtml" />
+    <Content Include="Views\Pagoes\VerPagos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

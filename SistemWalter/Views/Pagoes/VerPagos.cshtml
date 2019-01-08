@@ -84,7 +84,14 @@
                         @Html.DisplayFor(modelItem => item.Fecha_Lectura)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Estado)
+                        @if (item.Estado == 0)
+                        {
+                            <font>Cancelado</font>
+                        }
+                        else
+                        {
+                            <font>Pendiente</font>
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Fecha_Registro)
@@ -92,10 +99,11 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
                     </td>
+
+                    @*Ocultar dependiendo del rol del usuario*@
                     <td>
                         @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon-usd", @title = "Asignar Pago" })
                         @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-eye-open", @title = "Ver factura" })
-                        @Html.ActionLink(" ", "CrearMora", "MoraClientes", new { id = item.ClienteId }, new { @class = "btn btn-danger glyphicon glyphicon-scissors", @title = "Registrar Mora" })
                     </td>
                 </tr>
             }

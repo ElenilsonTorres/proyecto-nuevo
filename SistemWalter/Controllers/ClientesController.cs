@@ -20,6 +20,15 @@ namespace SistemWalter.Controllers
             return View(db.Clientes.ToList());
         }
 
+        [HttpPost]
+        public ActionResult Index(string parametro)
+        {
+            var clientes = (from c in db.Clientes
+                            where c.Nombre_Completo.Contains(parametro)
+                            select c).ToList();
+            return View(clientes);
+        }
+
         // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {

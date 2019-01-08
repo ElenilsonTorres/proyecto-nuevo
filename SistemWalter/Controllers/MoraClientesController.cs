@@ -36,6 +36,47 @@ namespace SistemWalter.Controllers
             return View(moraCliente);
         }
 
+        public ActionResult CrearMora(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var cliente = db.Clientes.Find(id);
+            ViewBag.ClienteId = cliente.Id;
+            ViewBag.NombreCliente = cliente.Nombre_Completo;
+            return View("Create");
+        }
+
+        [HttpPost]
+        public ActionResult crearMora([Bind(Include = "Id,ClienteId,Meses,Total")] MoraCliente moraCliente)
+        {
+            if (ModelState.IsValid)
+            {
+                var existe = (from m in db.MoraClientes
+                              where m.ClienteId == moraCliente.ClienteId
+                              select m).FirstOrDefault();
+
+                if(existe == null)
+                {
+                    var mora = (from m in db.Configuraciones
+                                select m.Mora).FirstOrDefault();
+
+                    moraCliente.Total = mora;
+                    moraCliente.Fecha_Registro = DateTime.Now;
+                    moraCliente.Estado = 0;
+                    db.MoraClientes.Add(moraCliente);
+                    db.SaveChanges();
+                }
+                
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nombre_Completo", moraCliente.ClienteId);
+            return View(moraCliente);
+        }
+
         // GET: MoraClientes/Create
         public ActionResult Create()
         {
@@ -55,7 +96,7 @@ namespace SistemWalter.Controllers
                 var mora = (from m in db.Configuraciones
                             select m.Mora).FirstOrDefault();
 
-                moraCliente.Total = mora * moraCliente.Meses;
+                moraCliente.Total = mora;
                 moraCliente.Fecha_Registro = DateTime.Now;
                 moraCliente.Estado = 0;
                 db.MoraClientes.Add(moraCliente);
@@ -95,7 +136,7 @@ namespace SistemWalter.Controllers
                 var mora = (from m in db.Configuraciones
                             select m.Mora).FirstOrDefault();
 
-                moraCliente.Total = mora * moraCliente.Meses;
+                moraCliente.Total = mora;
 
                 db.Entry(moraCliente).State = EntityState.Modified;
                 db.SaveChanges();

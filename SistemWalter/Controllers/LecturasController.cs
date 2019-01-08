@@ -17,8 +17,15 @@ namespace SistemWalter.Controllers
         // GET: Lecturas
         public ActionResult Index()
         {
-            var lecturas = db.Lecturas.Include(l => l.Cliente);
-            return View(lecturas.ToList());
+            var Todas_lecturas = db.Lecturas.ToList();
+
+            var lecturas_confactura = (from l in db.Lecturas
+                                       join p in db.Pagos on l.Id equals p.Lectura_Id
+                                       select l).ToList();
+
+            var facturas_pendientes = Todas_lecturas.Except(lecturas_confactura);
+                                       
+            return View(facturas_pendientes.ToList());
         }
 
         // GET: Lecturas/Details/5

@@ -19,8 +19,62 @@ namespace SistemWalter.Controllers
         {
             var pagos = (from p in db.Pagos 
                          where p.Estado== 1
-                         select p);
-            return View(pagos.ToList());
+                         orderby p.Total descending
+                         select p).ToList();
+
+            var pagos_pendientes = new List<Pago>();
+            var pagos_duplicados = new List<Pago>();
+
+            foreach (var item in pagos)
+            {
+                var pago = new Pago
+                {
+                    Id = item.Id,
+                    Lectura_Id = item.Lectura_Id,
+                    ClienteId = item.ClienteId,
+                    Numero_Factura = item.Numero_Factura,
+                    Lectura_Anterior = item.Lectura_Anterior,
+                    Lectura_Actual = item.Lectura_Actual,
+                    Consumo = item.Consumo,
+                    Cuota_Fija = item.Cuota_Fija,
+                    Mes_Atrasado = item.Mes_Atrasado,
+                    Mora = item.Mora,
+                    Total = item.Total,
+                    Fecha_Lectura = item.Fecha_Lectura,
+                    Fecha_Pago = item.Fecha_Pago,
+                    Estado = item.Estado,
+                    Fecha_Registro = item.Fecha_Registro
+                };
+
+                var existe = (from p in pagos_pendientes
+                              where p.ClienteId == item.ClienteId
+                              select p).FirstOrDefault();
+                if(existe == null)
+                {
+                    pagos_pendientes.Add(pago);
+                }
+                else
+                {
+                    pagos_duplicados.Add(pago);
+                }
+            }
+
+            var pagosP = pagos.Except(pagos_duplicados);
+            return View(pagos_pendientes.ToList());
+        }
+
+        public ActionResult VerPagos(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var pagos = (from p in db.Pagos
+                         where p.ClienteId == id
+                         select p).ToList();
+
+            return View(pagos);
         }
 
         // GET: Pagoes/Details/5
@@ -94,14 +148,23 @@ namespace SistemWalter.Controllers
                 if(Estad == "1")
                 {
                     pago.Estado = 1;
-
+                    db.Entry(pago).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
                 else
                 {
-                    pago.Estado = 0;
+                    var pagos_pendientes = (from p in db.Pagos
+                                            where p.ClienteId == pago.ClienteId && p.Estado == 1
+                                            select p).ToList();
+
+                    foreach (var item in pagos_pendientes)
+                    {
+                        item.Estado = 0;
+                        db.Entry(item).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
                 }
-                db.Entry(pago).State = EntityState.Modified;
-                db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nombre_Completo", pago.ClienteId);
@@ -157,8 +220,14 @@ namespace SistemWalter.Controllers
                                     orderby l.Id descending
                                     select l.Lectura1).Take(2).ToList();
 
-            var lec_ant = ultimas_lecturas[1];
+            int lec_ant = 0;
 
+            if(ultimas_lecturas.Count > 1)
+            {
+                lec_ant = Convert.ToInt32(ultimas_lecturas[1]);
+            }
+
+           
             var cuota_fija = (from c in db.Configuraciones
                               select c.Couta_Fija).FirstOrDefault();
 
@@ -171,21 +240,43 @@ namespace SistemWalter.Controllers
             var metro3 = (from c in db.Configuraciones
                           select c.Valor_Metro3).FirstOrDefault();
 
-
-            var consumo = lectura.Lectura1 - lec_ant;
+            int consumo;
+            if (lec_ant == 0)
+            {
+                consumo = Convert.ToInt32(lectura.Lectura1);
+            }
+            else
+            {
+                consumo = Convert.ToInt32(lectura.Lectura1 - lec_ant);
+            }   
 
             var moras = (from m in db.MoraClientes
                          where m.ClienteId == lectura.ClientesId && m.Estado==0
                          select m.Total).Sum();
 
-            var pagopendiente = (from p in db.Pagos
+            var pagos_pendientes = (from p in db.Pagos
                                  where p.ClienteId == lectura.ClientesId && p.Estado == 1
-                                 select p.Total).Sum();
+                                 orderby p.Id descending
+                                 select p.Total).ToList();
+
+
+            decimal pagopendiente = 0;
+
+            if(pagos_pendientes.Count > 0)
+            {
+               pagopendiente  = Convert.ToDecimal(pagos_pendientes[0]);
+            }
+            
             decimal total = 0;
+
+            if (moras == null)
+            {
+                moras = 0;
+            }
 
             if (consumo < 13)
             {
-                if (pagopendiente != null)
+                if (pagopendiente != 0)
                 {
                     total = Convert.ToDecimal((consumo * metro1) + moras + pagopendiente + cuota_fija);
                 }
@@ -199,7 +290,7 @@ namespace SistemWalter.Controllers
 
             else if (consumo >= 13 && consumo < 20)
             {
-                if (pagopendiente != null)
+                if (pagopendiente != 0)
                 {
                     total = Convert.ToDecimal((consumo * metro2) + moras + pagopendiente + cuota_fija);
                 }
@@ -212,7 +303,7 @@ namespace SistemWalter.Controllers
 
             else if (consumo >= 20)
             {
-                if (pagopendiente != null)
+                if (pagopendiente != 0)
                 {
                     total = Convert.ToDecimal((consumo * metro3) + moras + pagopendiente + cuota_fija);
                 }
@@ -225,7 +316,7 @@ namespace SistemWalter.Controllers
             
             Pago pago = new Pago();
 
-            if (pagopendiente != null)
+            if (pagopendiente != 0)
             {
                 pago.Mes_Atrasado = pagopendiente;
             }
