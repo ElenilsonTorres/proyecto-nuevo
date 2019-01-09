@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SistemWalter.Context;
+using SistemWalter.ViewModels;
 
 namespace SistemWalter.Controllers
 {
@@ -22,12 +23,11 @@ namespace SistemWalter.Controllers
                          orderby p.Total descending
                          select p).ToList();
 
-            var pagos_pendientes = new List<Pago>();
-            var pagos_duplicados = new List<Pago>();
+            var pagos_pendientes = new List<PagosView>();
 
             foreach (var item in pagos)
             {
-                var pago = new Pago
+                var pago = new PagosView
                 {
                     Id = item.Id,
                     Lectura_Id = item.Lectura_Id,
@@ -43,7 +43,8 @@ namespace SistemWalter.Controllers
                     Fecha_Lectura = item.Fecha_Lectura,
                     Fecha_Pago = item.Fecha_Pago,
                     Estado = item.Estado,
-                    Fecha_Registro = item.Fecha_Registro
+                    Fecha_Registro = item.Fecha_Registro,
+                    NombreCliente = item.Cliente.Nombre_Completo
                 };
 
                 var existe = (from p in pagos_pendientes
@@ -53,13 +54,8 @@ namespace SistemWalter.Controllers
                 {
                     pagos_pendientes.Add(pago);
                 }
-                else
-                {
-                    pagos_duplicados.Add(pago);
-                }
             }
 
-            var pagosP = pagos.Except(pagos_duplicados);
             return View(pagos_pendientes.ToList());
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SistemWalter.Models;
@@ -17,6 +18,8 @@ namespace SistemWalter.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        private ApplicationDbContext dbU = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -79,6 +82,22 @@ namespace SistemWalter.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var usuario = UserManager.FindByEmail(model.Email);
+                    var role = InRole(usuario.Id);
+
+                    if (role == 1)
+                    {
+                        Session["Rol"] = "Administrador";
+                    }
+                    else if (role == 2)
+                    {
+                        Session["Rol"] = "Cliente";
+                    }
+                    else
+                    {
+                        Session["Rol"] = "SinRol";
+                    }
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -421,6 +440,26 @@ namespace SistemWalter.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        public int InRole(string idUser)
+        {
+            int rol = 0;
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dbU));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(dbU));
+
+            if (userManager.IsInRole(idUser, "Administrador"))
+            {
+                rol = 1;
+                return rol;
+            }
+            else if (userManager.IsInRole(idUser, "Cliente"))
+            {
+                rol = 2;
+                return rol;
+            }
+
+            return rol;
         }
 
         #region Helpers

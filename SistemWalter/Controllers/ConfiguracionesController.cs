@@ -11,7 +11,7 @@ using SistemWalter.Context;
 namespace SistemWalter.Controllers
 {
 
-    [Authorize/*(Roles = "")*/]      //Esta linea de codigo representa las autorizaciones y roles de usuarios 
+    [Authorize(Roles = "Administrador")]      //Esta linea de codigo representa las autorizaciones y roles de usuarios 
     //co
     public class ConfiguracionesController : Controller
     {
@@ -53,8 +53,15 @@ namespace SistemWalter.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Configuraciones.Add(configuracione);
-                db.SaveChanges();
+                var existente = (from c in db.Configuraciones
+                                 select c).Count();
+
+                if (existente == 0)
+
+                { db.Configuraciones.Add(configuracione);
+                db.SaveChanges();}
+
+                
                 return RedirectToAction("Index");
             }
 
