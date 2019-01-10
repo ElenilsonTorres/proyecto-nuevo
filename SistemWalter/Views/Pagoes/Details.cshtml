@@ -1,140 +1,211 @@
 ﻿@model SistemWalter.Context.Pago
 
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
 }
 
-<h2>Detalles</h2>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-<div>
-    <h4>Pagos</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Numero_Factura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Numero_Factura)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Lectura_Anterior)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Lectura_Anterior)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Lectura_Actual)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Lectura_Actual)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Consumo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Consumo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cuota_Fija)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cuota_Fija)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Mes_Atrasado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Mes_Atrasado)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Mora)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Mora)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Total)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Total)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Fecha_Lectura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Fecha_Lectura)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Fecha_Pago)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Fecha_Pago)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Fecha_Registro)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Fecha_Registro)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cliente.Nombre_Completo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cliente.Nombre_Completo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Lectura.Estado_Lectura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Lectura.Estado_Lectura)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Regresar", "Index")
-</p>
+<style>
+    #recibo {
+        margin-left: 20%;
+        background-image: url(../../Content/img/Confidencial.png);
+        background-size: 40%, 40%;
+        background-repeat: no-repeat;
+        background-position-x: center;
+    }
+</style>
 
 <div class="row">
-    <table class="table">
+    <table border="1" id="recibo" cellspacing="5" cellpadding="0">
         <thead>
             <tr>
-                <th>ASOCIACION COMUNAL ADMINISTRADORA DE AGUA POTABLE      </th>
+                <th colspan="7" style="text-align: center;">
+                    ASOCIACION COMUNAL ADMINISTRADORA DE AGUA POTABLE
+                </th>
+
+                <th colspan="2">
+                    @Html.DisplayFor(model => model.Numero_Factura)
+                </th>
             </tr>
+            <tr>
+                <th colspan="7" style="text-align: center;">
+                    "ANGEL GUARDIAN" ACAAPAG C. VALENCIA
+                </th>
+
+                <td></td>
+            </tr>
+            
         </thead>
+        <tbody>
+            <tr>
+                <td colspan="9" height="10"></td>
+            </tr>
+            <tr>
+                <td>
+                    Fecha:
+                </td>
+                <td colspan="4">
+                    Saturday, January 10, 2019
+                </td>
+                <td></td>
+                <td></td>
+                <td colspan="2">
+                $    @Html.DisplayFor(model => model.Total)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="9" height="10"></td>
+            </tr>
+            <tr>
+                <td>
+                    N°: @Html.DisplayFor(model => model.Cliente.Id)
+                </td>
+                <td colspan="4">
+                    @Html.DisplayFor(model => model.Cliente.Nombre_Completo)
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="9" height="10"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    LECTURA ANTERIOR
+                </td>
+                <td style="text-align: right;">
+                    @Html.DisplayFor(model => model.Lectura_Anterior)
+                </td>
+                <td></td>
+                <td></td>
+                <td colspan="2" rowspan="6" width="50" style="text-align: center; vertical-align: bottom;">
+                    SELLO
+                </td>
+
+
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    LECTURA ACTUAL
+                </td>
+                <td style="text-align: right;">
+                    @Html.DisplayFor(model => model.Lectura_Actual)
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    CONSUMO BÁSICO
+                </td>
+                <td style="text-align: right;">
+                    @Html.DisplayFor(model => model.Consumo)
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    CUOTA FIJA
+                </td>
+                <td style="text-align: right;">
+                 $   @Html.DisplayFor(model => model.Cuota_Fija)
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    MES ATRASADO
+                </td>
+                <td style="text-align: right;">
+                 $  @Html.DisplayFor(model => model.Mes_Atrasado)
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    MORA
+                </td>
+                <td style="text-align: right;">
+                 $   @Html.DisplayFor(model => model.Mora)
+                </td>
+                <td></td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    TOTAL A PAGAR
+                </td>
+                <td style="text-align: right;">
+                 $   @Html.DisplayFor(model => model.Total)
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="9" height="10"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    DÍA DE PAGO:
+                </td>
+                <td colspan="3">
+                    SATURDAY, JANUARY 10, 2019
+                </td>
+                <td></td>
+                <td>
+                    SINDICO
+                </td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="9" height="10"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    VENCIMIENTO:
+                </td>
+                <td colspan="3">
+                    SATURDAY, JANUARY 10, 2019
+                </td>
+                <td></td>
+                <td>
+                    TESORERO
+                </td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="4" rowspan="2">
+                    21 SE ESTARÁ COBRANDO
+                </td>
+                
+                <td colspan="5" rowspan="2">
+                    31 SE ESTARÁ COBRANDO
+                </td>
+            </tr>
+            <tr>
+            </tr>
+        </tbody>
     </table>
+    <div class="row">
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Imprimir", "ConvertirPDF", new { id = Model.Id }, new { @class = "btn btn-success", @target = "_blank" })
+        </div>
+    </div>
 </div>

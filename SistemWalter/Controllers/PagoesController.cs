@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SistemWalter.Context;
 using SistemWalter.ViewModels;
+using Rotativa;
 
 namespace SistemWalter.Controllers
 {
@@ -71,6 +72,13 @@ namespace SistemWalter.Controllers
                          select p).ToList();
 
             return View(pagos);
+        }
+
+        public ActionResult ConvertirPDF(int id)
+        {
+            var clienteId = id;
+            var imprimir = new ActionAsPdf("Details", new { id = clienteId});
+            return imprimir;
         }
 
         // GET: Pagoes/Details/5
