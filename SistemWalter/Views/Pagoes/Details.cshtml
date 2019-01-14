@@ -1,10 +1,11 @@
-﻿@model SistemWalter.Context.Pago
+﻿@model SistemWalter.ViewModels.PagosView
 
 @{
     Layout = null;
 }
 
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
 
 <style>
     #recibo {
@@ -16,10 +17,11 @@
     }
 </style>
 
-<div class="row">
-    <table border="1" id="recibo" cellspacing="5" cellpadding="0">
-        <thead>
+<div class="row">                                                                    @*Este es el formato para la tabla*@
+    <table border="1" id="recibo" cellspacing="5" cellpadding="0" style="background-color: #e6fff5;">                   
+        <thead>                                                                      @*Encabezado de la tabla*@
             <tr>
+                @*sección del cuerpo de una tabla*@
                 <th colspan="7" style="text-align: center;">
                     ASOCIACION COMUNAL ADMINISTRADORA DE AGUA POTABLE
                 </th>
@@ -37,13 +39,15 @@
             </tr>
             
         </thead>
-        <tbody>
+        <tbody>                                                                        @*Bloque de Filas*@
             <tr>
                 <td colspan="9" height="10"></td>
             </tr>
+
             <tr>
+                                                                                     @*Bloque de Filas*@
                 <td>
-                    Fecha:
+                    Fecha: @Html.DisplayFor(model => model.Fecha_Lectura)
                 </td>
                 <td colspan="4">
                     Saturday, January 10, 2019
@@ -51,7 +55,7 @@
                 <td></td>
                 <td></td>
                 <td colspan="2">
-                $    @Html.DisplayFor(model => model.Total)
+                    $    @Html.DisplayFor(model => model.Total)
                 </td>
             </tr>
             <tr>
@@ -59,10 +63,10 @@
             </tr>
             <tr>
                 <td>
-                    N°: @Html.DisplayFor(model => model.Cliente.Id)
+                    N°: @Html.DisplayFor(model => model.ClienteId)
                 </td>
                 <td colspan="4">
-                    @Html.DisplayFor(model => model.Cliente.Nombre_Completo)
+                    @Html.DisplayFor(model => model.NombreCliente)
                 </td>
                 <td></td>
                 <td></td>
@@ -73,15 +77,13 @@
             </tr>
             <tr>
                 <td></td>
-                <td colspan="3">
+                <td colspan="4">
                     LECTURA ANTERIOR
                 </td>
                 <td style="text-align: right;">
                     @Html.DisplayFor(model => model.Lectura_Anterior)
                 </td>
-                <td></td>
-                <td></td>
-                <td colspan="2" rowspan="6" width="50" style="text-align: center; vertical-align: bottom;">
+                <td colspan="3" rowspan="7" width="50" style="text-align: center; vertical-align: bottom;">
                     SELLO
                 </td>
 
@@ -89,71 +91,59 @@
             </tr>
             <tr>
                 <td></td>
-                <td colspan="3">
+                <td colspan="4">
                     LECTURA ACTUAL
                 </td>
                 <td style="text-align: right;">
                     @Html.DisplayFor(model => model.Lectura_Actual)
                 </td>
-                <td></td>
-                <td></td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="3">
+                <td colspan="4">
                     CONSUMO BÁSICO
                 </td>
                 <td style="text-align: right;">
                     @Html.DisplayFor(model => model.Consumo)
                 </td>
-                <td></td>
-                <td></td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="3">
+                <td colspan="4">
                     CUOTA FIJA
                 </td>
                 <td style="text-align: right;">
                  $   @Html.DisplayFor(model => model.Cuota_Fija)
                 </td>
-                <td></td>
-                <td></td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="3">
+                <td colspan="4">
                     MES ATRASADO
                 </td>
                 <td style="text-align: right;">
                  $  @Html.DisplayFor(model => model.Mes_Atrasado)
                 </td>
-                <td></td>
-                <td></td>
+
             </tr>
             <tr>
                 <td></td>
-                <td colspan="3">
+                <td colspan="4">
                     MORA
                 </td>
                 <td style="text-align: right;">
                  $   @Html.DisplayFor(model => model.Mora)
                 </td>
-                <td></td>
-                <td>
-                </td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="3">
+                <td colspan="4">
                     TOTAL A PAGAR
                 </td>
                 <td style="text-align: right;">
                  $   @Html.DisplayFor(model => model.Total)
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
+
             </tr>
             <tr>
                 <td colspan="9" height="10"></td>
@@ -163,7 +153,7 @@
                     DÍA DE PAGO:
                 </td>
                 <td colspan="3">
-                    SATURDAY, JANUARY 10, 2019
+                    @Html.DisplayFor(model => model.Fecha_Pago)
                 </td>
                 <td></td>
                 <td>
@@ -179,7 +169,7 @@
                     VENCIMIENTO:
                 </td>
                 <td colspan="3">
-                    SATURDAY, JANUARY 10, 2019
+                    @Html.DisplayFor(model => model.Fecha_Vencimiento)
                 </td>
                 <td></td>
                 <td>

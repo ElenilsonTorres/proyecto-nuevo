@@ -31,6 +31,7 @@
         <AssociationConnector Association="SistemadeAguaModel.FK__PagoInscr__Inscr__3E52440B" ManuallyRouted="false" />
         <AssociationConnector Association="SistemadeAguaModel.FK__Pagos__Lectura_I__44FF419A" ManuallyRouted="false" />
         <AssociationConnector Association="SistemadeAguaModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SistemadeAguaModel.Tbl_Fechas" Width="1.5" PointX="12.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

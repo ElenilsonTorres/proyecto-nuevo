@@ -40,5 +40,6 @@ namespace SistemWalter.Context
         public virtual DbSet<PagoInscripcion> PagoInscripcions { get; set; }
         public virtual DbSet<Pago> Pagos { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Tbl_Fechas> Tbl_Fechas { get; set; }
     }
 }

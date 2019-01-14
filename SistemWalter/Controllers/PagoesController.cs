@@ -42,7 +42,7 @@ namespace SistemWalter.Controllers
                     Mora = item.Mora,
                     Total = item.Total,
                     Fecha_Lectura = item.Fecha_Lectura,
-                    Fecha_Pago = item.Fecha_Pago,
+                    Fecha_Pago = Convert.ToDateTime  (item.Fecha_Pago),
                     Estado = item.Estado,
                     Fecha_Registro = item.Fecha_Registro,
                     NombreCliente = item.Cliente.Nombre_Completo
@@ -88,12 +88,41 @@ namespace SistemWalter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Pago pago = db.Pagos.Find(id);
+
+            PagosView pagosfecha = new PagosView();
+
+            var fechaPago = (from fp in db.Tbl_Fechas
+                             where fp.Mes == DateTime.Now.Month && fp.Anio == DateTime.Now.Year
+                             select fp.Fecha_Pago).FirstOrDefault();
+
+            var fechaVencimiento = (from fp in db.Tbl_Fechas
+                             where fp.Mes == DateTime.Now.Month && fp.Anio == DateTime.Now.Year
+                             select fp.Fecha_Vencimiento).FirstOrDefault();
+
+            pagosfecha.Id = pago.Id;
+            pagosfecha.Lectura_Id = pago.Lectura_Id;
+            pagosfecha.ClienteId = pago.ClienteId;
+            pagosfecha.Numero_Factura = pago.Numero_Factura;
+            pagosfecha.Lectura_Anterior = pago.Lectura_Anterior;
+            pagosfecha.Lectura_Actual = pago.Lectura_Actual;
+            pagosfecha.Consumo = pago.Consumo;
+            pagosfecha.Cuota_Fija = pago.Cuota_Fija;
+            pagosfecha.Mes_Atrasado = pago.Mes_Atrasado;
+            pagosfecha.Mora = pago.Mora;
+            pagosfecha.Total = pago.Total;
+            pagosfecha.Fecha_Lectura = pago.Fecha_Lectura;
+            pagosfecha.Estado = pago.Estado;
+            pagosfecha.Fecha_Registro = pago.Fecha_Registro;
+            pagosfecha.Fecha_Pago = Convert.ToDateTime (fechaPago);
+            pagosfecha.Fecha_Vencimiento = Convert.ToDateTime (fechaVencimiento);
+            pagosfecha.NombreCliente = pago.Cliente.Nombre_Completo;
             if (pago == null)
             {
                 return HttpNotFound();
             }
-            return View(pago);
+            return View(pagosfecha);
         }
 
         // GET: Pagoes/Create
@@ -202,136 +231,150 @@ namespace SistemWalter.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Asignarpago(int? id)
+        public ActionResult Asignarpago()
         {
-            if (id == null)
+            var Todas_lecturas = db.Lecturas.ToList();
+
+            var lecturas_confactura = (from l in db.Lecturas
+                                       join p in db.Pagos on l.Id equals p.Lectura_Id
+                                       select l).ToList();
+
+            var facturas_pendientes = Todas_lecturas.Except(lecturas_confactura);
+
+            foreach (var item in facturas_pendientes)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadGateway);
-            }
+                var lectura = db.Lecturas.Find(item.Id);
 
-            var lectura = db.Lecturas.Find(id);
+                var ultimas_lecturas = (from l in db.Lecturas
+                                        where l.ClientesId == lectura.ClientesId
+                                        orderby l.Id descending
+                                        select l.Lectura1).Take(2).ToList();
 
-            if (lectura == null)
-            {
-                return new HttpNotFoundResult();
-            }
+                int lec_ant = 0;
 
-            ViewBag.Lectura_Id = new SelectList(db.Lecturas, "Id", "Estado_Lectura", lectura.Id);
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nombre_Completo", lectura.ClientesId);
-
-            var ultimas_lecturas = (from l in db.Lecturas
-                                    where l.ClientesId == lectura.ClientesId
-                                    orderby l.Id descending
-                                    select l.Lectura1).Take(2).ToList();
-
-            int lec_ant = 0;
-
-            if(ultimas_lecturas.Count > 1)
-            {
-                lec_ant = Convert.ToInt32(ultimas_lecturas[1]);
-            }
-
-           
-            var cuota_fija = (from c in db.Configuraciones
-                              select c.Couta_Fija).FirstOrDefault();
-
-            var metro1 = (from c in db.Configuraciones
-                          select c.Valor_Metro).FirstOrDefault();
-
-            var metro2 = (from c in db.Configuraciones
-                          select c.Valor_Metro2).FirstOrDefault();
-
-            var metro3 = (from c in db.Configuraciones
-                          select c.Valor_Metro3).FirstOrDefault();
-
-            int consumo;
-            if (lec_ant == 0)
-            {
-                consumo = Convert.ToInt32(lectura.Lectura1);
-            }
-            else
-            {
-                consumo = Convert.ToInt32(lectura.Lectura1 - lec_ant);
-            }   
-
-            var moras = (from m in db.MoraClientes
-                         where m.ClienteId == lectura.ClientesId && m.Estado==0
-                         select m.Total).Sum();
-
-            var pagos_pendientes = (from p in db.Pagos
-                                 where p.ClienteId == lectura.ClientesId && p.Estado == 1
-                                 orderby p.Id descending
-                                 select p.Total).ToList();
-
-
-            decimal pagopendiente = 0;
-
-            if(pagos_pendientes.Count > 0)
-            {
-               pagopendiente  = Convert.ToDecimal(pagos_pendientes[0]);
-            }
-            
-            decimal total = 0;
-
-            if (moras == null)
-            {
-                moras = 0;
-            }
-
-            if (consumo < 13)
-            {
-                if (pagopendiente != 0)
+                if (ultimas_lecturas.Count > 1)
                 {
-                    total = Convert.ToDecimal((consumo * metro1) + moras + pagopendiente + cuota_fija);
+                    lec_ant = Convert.ToInt32(ultimas_lecturas[1]);
                 }
 
+
+                var cuota_fija = (from c in db.Configuraciones
+                                  select c.Couta_Fija).FirstOrDefault();
+
+                var metro1 = (from c in db.Configuraciones
+                              select c.Valor_Metro).FirstOrDefault();
+
+                var metro2 = (from c in db.Configuraciones
+                              select c.Valor_Metro2).FirstOrDefault();
+
+                var metro3 = (from c in db.Configuraciones
+                              select c.Valor_Metro3).FirstOrDefault();
+
+                int consumo;
+                if (lec_ant == 0)
+                {
+                    consumo = Convert.ToInt32(lectura.Lectura1);
+                }
                 else
                 {
-                    total = Convert.ToDecimal((consumo * metro1) + moras + cuota_fija);
+                    consumo = Convert.ToInt32(lectura.Lectura1 - lec_ant);
                 }
-                    
-            }
 
-            else if (consumo >= 13 && consumo < 20)
-            {
+                var moras = (from m in db.MoraClientes
+                             where m.ClienteId == lectura.ClientesId && m.Estado == 0
+                             select m.Total).Sum();
+
+                var pagos_pendientes = (from p in db.Pagos
+                                        where p.ClienteId == lectura.ClientesId && p.Estado == 1
+                                        orderby p.Id descending
+                                        select p.Total).ToList();
+
+
+                decimal pagopendiente = 0;
+
+                if (pagos_pendientes.Count > 0)
+                {
+                    pagopendiente = Convert.ToDecimal(pagos_pendientes[0]);
+                }
+
+                decimal total = 0;
+
+                if (moras == null)
+                {
+                    moras = 0;
+                }
+
+                if (consumo < 13)
+                {
+                    if (pagopendiente != 0)
+                    {
+                        total = Convert.ToDecimal((consumo * metro1) + moras + pagopendiente + cuota_fija);
+                    }
+
+                    else
+                    {
+                        total = Convert.ToDecimal((consumo * metro1) + moras + cuota_fija);
+                    }
+
+                }
+
+                else if (consumo >= 13 && consumo < 20)
+                {
+                    if (pagopendiente != 0)
+                    {
+                        total = Convert.ToDecimal((consumo * metro2) + moras + pagopendiente + cuota_fija);
+                    }
+
+                    else
+                    {
+                        total = Convert.ToDecimal((consumo * metro2) + moras + cuota_fija);
+                    }
+                }
+
+                else if (consumo >= 20)
+                {
+                    if (pagopendiente != 0)
+                    {
+                        total = Convert.ToDecimal((consumo * metro3) + moras + pagopendiente + cuota_fija);
+                    }
+
+                    else
+                    {
+                        total = Convert.ToDecimal((consumo * metro3) + moras + cuota_fija);
+                    }
+                }
+
+                Pago pago = new Pago();
+
                 if (pagopendiente != 0)
                 {
-                    total = Convert.ToDecimal((consumo * metro2) + moras + pagopendiente + cuota_fija);
+                    pago.Mes_Atrasado = pagopendiente;
                 }
 
-                else
-                {
-                    total = Convert.ToDecimal((consumo * metro2) + moras + cuota_fija);
-                }
+                var numeroFactura = (from p in db.Pagos
+                                     select p.Numero_Factura).Max();
+
+
+                
+                //pago.Numero_Factura = numeroFactura == 0: 1 ? (numeroFactura + 1);
+                pago.Lectura_Anterior = lec_ant;
+                pago.Lectura_Id = lectura.Id;
+                pago.ClienteId = lectura.ClientesId;
+                pago.Estado = 1;
+                pago.Lectura_Actual = lectura.Lectura1;
+                pago.Consumo = lectura.Lectura1 - lec_ant;
+                pago.Mora = moras;
+                pago.Total = total;
+                pago.Cuota_Fija = cuota_fija;
+                pago.Fecha_Lectura = lectura.Fecha_Registro;
+
+                pago.Fecha_Registro = DateTime.Now;
+                db.Pagos.Add(pago);
+                db.SaveChanges();
             }
 
-            else if (consumo >= 20)
-            {
-                if (pagopendiente != 0)
-                {
-                    total = Convert.ToDecimal((consumo * metro3) + moras + pagopendiente + cuota_fija);
-                }
 
-                else
-                {
-                    total = Convert.ToDecimal((consumo * metro3) + moras + cuota_fija);
-                }
-            }
-            
-            Pago pago = new Pago();
-
-            if (pagopendiente != 0)
-            {
-                pago.Mes_Atrasado = pagopendiente;
-            }
-            pago.Lectura_Anterior = lec_ant;
-            pago.Lectura_Actual = lectura.Lectura1;
-            pago.Consumo = lectura.Lectura1 - lec_ant;
-            pago.Mora = moras;
-            pago.Total = total;
-            pago.Cuota_Fija = cuota_fija;
-            pago.Fecha_Lectura = lectura.Fecha_Registro;
-            return View("Create", pago);
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult Asignarpago(Pago pagos)

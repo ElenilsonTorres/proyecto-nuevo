@@ -181,7 +181,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Lectura_Id" Type="int" />
           <Property Name="ClienteId" Type="int" />
-          <Property Name="Numero_Factura" Type="varchar" MaxLength="15" />
+          <Property Name="Numero_Factura" Type="int" />
           <Property Name="Lectura_Anterior" Type="int" />
           <Property Name="Lectura_Actual" Type="int" />
           <Property Name="Consumo" Type="int" />
@@ -203,6 +203,16 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Fechas">
+          <Key>
+            <PropertyRef Name="IdFecha" />
+          </Key>
+          <Property Name="IdFecha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_Pago" Type="date" />
+          <Property Name="Fecha_Vencimiento" Type="date" />
+          <Property Name="Mes" Type="int" />
+          <Property Name="Anio" Type="int" />
         </EntityType>
         <Association Name="FK__Empleados__Empre__34C8D9D1">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
@@ -273,30 +283,6 @@
             </Principal>
             <Dependent Role="PagoInscripcion">
               <PropertyRef Name="InscripcionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Pagos__ClienteId__45F365D3">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
-          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pagos">
-              <PropertyRef Name="ClienteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Pagos__Lectura_I__44FF419A">
-          <End Role="Lecturas" Type="Self.Lecturas" Multiplicity="0..1" />
-          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lecturas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pagos">
-              <PropertyRef Name="Lectura_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -373,6 +359,7 @@
           <EntitySet Name="PagoInscripcion" EntityType="Self.PagoInscripcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pagos" EntityType="Self.Pagos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Fechas" EntityType="Self.Tbl_Fechas" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Empleados__Empre__34C8D9D1" Association="Self.FK__Empleados__Empre__34C8D9D1">
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Empleados" EntitySet="Empleados" />
@@ -396,14 +383,6 @@
           <AssociationSet Name="FK__PagoInscr__Inscr__3E52440B" Association="Self.FK__PagoInscr__Inscr__3E52440B">
             <End Role="Inscripciones" EntitySet="Inscripciones" />
             <End Role="PagoInscripcion" EntitySet="PagoInscripcion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pagos__ClienteId__45F365D3" Association="Self.FK__Pagos__ClienteId__45F365D3">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Pagos" EntitySet="Pagos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pagos__Lectura_I__44FF419A" Association="Self.FK__Pagos__Lectura_I__44FF419A">
-            <End Role="Lecturas" EntitySet="Lecturas" />
-            <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -614,7 +593,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Lectura_Id" Type="Int32" />
           <Property Name="ClienteId" Type="Int32" />
-          <Property Name="Numero_Factura" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Numero_Factura" Type="String" />
           <Property Name="Lectura_Anterior" Type="Int32" />
           <Property Name="Lectura_Actual" Type="Int32" />
           <Property Name="Consumo" Type="Int32" />
@@ -827,7 +806,18 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Tbl_Fechas" EntityType="SistemadeAguaModel.Tbl_Fechas" />
         </EntityContainer>
+        <EntityType Name="Tbl_Fechas">
+          <Key>
+            <PropertyRef Name="IdFecha" />
+          </Key>
+          <Property Name="IdFecha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_Pago" Type="DateTime" Precision="0" />
+          <Property Name="Fecha_Vencimiento" Type="DateTime" Precision="0" />
+          <Property Name="Mes" Type="Int32" />
+          <Property Name="Anio" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1045,6 +1035,17 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Tbl_Fechas">
+            <EntityTypeMapping TypeName="SistemadeAguaModel.Tbl_Fechas">
+              <MappingFragment StoreEntitySet="Tbl_Fechas">
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Fecha_Vencimiento" ColumnName="Fecha_Vencimiento" />
+                <ScalarProperty Name="Fecha_Pago" ColumnName="Fecha_Pago" />
+                <ScalarProperty Name="IdFecha" ColumnName="IdFecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -238,6 +238,9 @@
     <Compile Include="Context\sysdiagram.cs">
       <DependentUpon>BaseSW.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\Tbl_Fechas.cs">
+      <DependentUpon>BaseSW.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ConfiguracionesController.cs" />
@@ -250,6 +253,7 @@
     <Compile Include="Controllers\MoraClientesController.cs" />
     <Compile Include="Controllers\PagoesController.cs" />
     <Compile Include="Controllers\PagoInscripcionsController.cs" />
+    <Compile Include="Controllers\Tbl_FechasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -390,6 +394,11 @@
     <Content Include="Views\PagoInscripcions\Edit.cshtml" />
     <Content Include="Views\PagoInscripcions\Index.cshtml" />
     <Content Include="Views\Pagoes\VerPagos.cshtml" />
+    <Content Include="Views\Tbl_Fechas\Create.cshtml" />
+    <Content Include="Views\Tbl_Fechas\Delete.cshtml" />
+    <Content Include="Views\Tbl_Fechas\Details.cshtml" />
+    <Content Include="Views\Tbl_Fechas\Edit.cshtml" />
+    <Content Include="Views\Tbl_Fechas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

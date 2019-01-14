@@ -20,9 +20,12 @@ namespace SistemWalter.ViewModels
         public Nullable<decimal> Mora { get; set; }
         public Nullable<decimal> Total { get; set; }
         public Nullable<System.DateTime> Fecha_Lectura { get; set; }
-        public Nullable<System.DateTime> Fecha_Pago { get; set; }
+
         public Nullable<int> Estado { get; set; }
         public Nullable<System.DateTime> Fecha_Registro { get; set; }
+
+        public DateTime Fecha_Pago { get; set; }
+        public DateTime Fecha_Vencimiento { get; set; }
 
         public string NombreCliente { get; set; }
     }

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SistemWalter.Context.Tbl_Fechas>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha_Pago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha_Vencimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Anio)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha_Pago)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha_Vencimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Anio)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdFecha }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdFecha }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdFecha })
+        </td>
+    </tr>
+}
+
+</table>
