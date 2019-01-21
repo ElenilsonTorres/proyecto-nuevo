@@ -342,6 +342,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pagos_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagos_Lecturas">
+          <End Role="Lecturas" Type="Self.Lecturas" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="Lectura_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SistemadeAguaModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -399,6 +423,14 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_Clientes" Association="Self.FK_Pagos_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_Lecturas" Association="Self.FK_Pagos_Lecturas">
+            <End Role="Lecturas" EntitySet="Lecturas" />
+            <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -481,7 +513,7 @@
           <NavigationProperty Name="Lecturas" Relationship="Self.FK__Lecturas__Client__4222D4EF" FromRole="Clientes" ToRole="Lecturas" />
           <NavigationProperty Name="MoraClientes" Relationship="Self.FK__MoraClien__Clien__48CFD27E" FromRole="Clientes" ToRole="MoraClientes" />
           <NavigationProperty Name="PagoInscripcions" Relationship="Self.FK__PagoInscr__Clien__3F466844" FromRole="Clientes" ToRole="PagoInscripcion" />
-          <NavigationProperty Name="Pagos" Relationship="Self.FK__Pagos__ClienteId__45F365D3" FromRole="Clientes" ToRole="Pagos" />
+          <NavigationProperty Name="Pagos" Relationship="SistemadeAguaModel.FK_Pagos_Clientes" FromRole="Cliente" ToRole="Pago" />
         </EntityType>
         <EntityType Name="Configuracione">
           <Key>
@@ -559,7 +591,7 @@
           <Property Name="Mes" Type="Int32" />
           <Property Name="ClientesId" Type="Int32" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK__Lecturas__Client__4222D4EF" FromRole="Lecturas" ToRole="Clientes" />
-          <NavigationProperty Name="Pagos" Relationship="Self.FK__Pagos__Lectura_I__44FF419A" FromRole="Lecturas" ToRole="Pagos" />
+          <NavigationProperty Name="Pagos" Relationship="SistemadeAguaModel.FK_Pagos_Lecturas" FromRole="Lectura" ToRole="Pago" />
         </EntityType>
         <EntityType Name="MoraCliente">
           <Key>
@@ -569,9 +601,9 @@
           <Property Name="ClienteId" Type="Int32" />
           <Property Name="Meses" Type="Int32" />
           <Property Name="Total" Type="Decimal" Precision="5" Scale="2" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK__MoraClien__Clien__48CFD27E" FromRole="MoraClientes" ToRole="Clientes" />
           <Property Name="Estado" Type="Int32" />
           <Property Name="Fecha_Registro" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__MoraClien__Clien__48CFD27E" FromRole="MoraClientes" ToRole="Clientes" />
         </EntityType>
         <EntityType Name="PagoInscripcion">
           <Key>
@@ -593,7 +625,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Lectura_Id" Type="Int32" />
           <Property Name="ClienteId" Type="Int32" />
-          <Property Name="Numero_Factura" Type="String" />
+          <Property Name="Numero_Factura" Type="Int32" />
           <Property Name="Lectura_Anterior" Type="Int32" />
           <Property Name="Lectura_Actual" Type="Int32" />
           <Property Name="Consumo" Type="Int32" />
@@ -605,8 +637,8 @@
           <Property Name="Fecha_Pago" Type="DateTime" Precision="0" />
           <Property Name="Estado" Type="Int32" />
           <Property Name="Fecha_Registro" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK__Pagos__ClienteId__45F365D3" FromRole="Pagos" ToRole="Clientes" />
-          <NavigationProperty Name="Lectura" Relationship="Self.FK__Pagos__Lectura_I__44FF419A" FromRole="Pagos" ToRole="Lecturas" />
+          <NavigationProperty Name="Cliente" Relationship="SistemadeAguaModel.FK_Pagos_Clientes" FromRole="Pago" ToRole="Cliente" />
+          <NavigationProperty Name="Lectura" Relationship="SistemadeAguaModel.FK_Pagos_Lecturas" FromRole="Pago" ToRole="Lectura" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -617,6 +649,16 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Fechas">
+          <Key>
+            <PropertyRef Name="IdFecha" />
+          </Key>
+          <Property Name="IdFecha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_Pago" Type="DateTime" Precision="0" />
+          <Property Name="Fecha_Vencimiento" Type="DateTime" Precision="0" />
+          <Property Name="Mes" Type="Int32" />
+          <Property Name="Anio" Type="Int32" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -694,18 +736,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pagos__ClienteId__45F365D3">
-          <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
-          <End Role="Pagos" Type="Self.Pago" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pagos">
-              <PropertyRef Name="ClienteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Empleados__Empre__34C8D9D1">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
           <End Role="Empleados" Type="Self.Empleado" Multiplicity="*" />
@@ -730,18 +760,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pagos__Lectura_I__44FF419A">
-          <End Role="Lecturas" Type="Self.Lectura" Multiplicity="0..1" />
-          <End Role="Pagos" Type="Self.Pago" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lecturas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pagos">
-              <PropertyRef Name="Lectura_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
@@ -762,6 +780,7 @@
           <EntitySet Name="PagoInscripcions" EntityType="Self.PagoInscripcion" />
           <EntitySet Name="Pagos" EntityType="Self.Pago" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tbl_Fechas" EntityType="Self.Tbl_Fechas" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -786,10 +805,6 @@
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="PagoInscripcion" EntitySet="PagoInscripcions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pagos__ClienteId__45F365D3" Association="Self.FK__Pagos__ClienteId__45F365D3">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Pagos" EntitySet="Pagos" />
-          </AssociationSet>
           <AssociationSet Name="FK__Empleados__Empre__34C8D9D1" Association="Self.FK__Empleados__Empre__34C8D9D1">
             <End Role="Empresa" EntitySet="Empresas" />
             <End Role="Empleados" EntitySet="Empleados" />
@@ -798,26 +813,43 @@
             <End Role="Inscripciones" EntitySet="Inscripciones" />
             <End Role="PagoInscripcion" EntitySet="PagoInscripcions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pagos__Lectura_I__44FF419A" Association="Self.FK__Pagos__Lectura_I__44FF419A">
-            <End Role="Lecturas" EntitySet="Lecturas" />
-            <End Role="Pagos" EntitySet="Pagos" />
-          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Tbl_Fechas" EntityType="SistemadeAguaModel.Tbl_Fechas" />
+          <AssociationSet Name="FK_Pagos_Clientes" Association="SistemadeAguaModel.FK_Pagos_Clientes">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="Pago" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_Lecturas" Association="SistemadeAguaModel.FK_Pagos_Lecturas">
+            <End Role="Lectura" EntitySet="Lecturas" />
+            <End Role="Pago" EntitySet="Pagos" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Tbl_Fechas">
-          <Key>
-            <PropertyRef Name="IdFecha" />
-          </Key>
-          <Property Name="IdFecha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fecha_Pago" Type="DateTime" Precision="0" />
-          <Property Name="Fecha_Vencimiento" Type="DateTime" Precision="0" />
-          <Property Name="Mes" Type="Int32" />
-          <Property Name="Anio" Type="Int32" />
-        </EntityType>
+        <Association Name="FK_Pagos_Clientes">
+          <End Type="SistemadeAguaModel.Cliente" Role="Cliente" Multiplicity="0..1" />
+          <End Type="SistemadeAguaModel.Pago" Role="Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagos_Lecturas">
+          <End Type="SistemadeAguaModel.Lectura" Role="Lectura" Multiplicity="0..1" />
+          <End Type="SistemadeAguaModel.Pago" Role="Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lectura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="Lectura_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -974,12 +1006,12 @@
           <EntitySetMapping Name="MoraClientes">
             <EntityTypeMapping TypeName="SistemadeAguaModel.MoraCliente">
               <MappingFragment StoreEntitySet="MoraClientes">
-                <ScalarProperty Name="Fecha_Registro" ColumnName="Fecha_Registro" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
                 <ScalarProperty Name="Meses" ColumnName="Meses" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Fecha_Registro" ColumnName="Fecha_Registro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1027,6 +1059,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Fechas">
+            <EntityTypeMapping TypeName="SistemadeAguaModel.Tbl_Fechas">
+              <MappingFragment StoreEntitySet="Tbl_Fechas">
+                <ScalarProperty Name="IdFecha" ColumnName="IdFecha" />
+                <ScalarProperty Name="Fecha_Pago" ColumnName="Fecha_Pago" />
+                <ScalarProperty Name="Fecha_Vencimiento" ColumnName="Fecha_Vencimiento" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="SistemadeAguaModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -1035,17 +1078,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Tbl_Fechas">
-            <EntityTypeMapping TypeName="SistemadeAguaModel.Tbl_Fechas">
-              <MappingFragment StoreEntitySet="Tbl_Fechas">
-                <ScalarProperty Name="Anio" ColumnName="Anio" />
-                <ScalarProperty Name="Mes" ColumnName="Mes" />
-                <ScalarProperty Name="Fecha_Vencimiento" ColumnName="Fecha_Vencimiento" />
-                <ScalarProperty Name="Fecha_Pago" ColumnName="Fecha_Pago" />
-                <ScalarProperty Name="IdFecha" ColumnName="IdFecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

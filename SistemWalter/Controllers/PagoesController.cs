@@ -33,7 +33,7 @@ namespace SistemWalter.Controllers
                     Id = item.Id,
                     Lectura_Id = item.Lectura_Id,
                     ClienteId = item.ClienteId,
-                    Numero_Factura = item.Numero_Factura,
+                    Numero_Factura = Convert.ToInt32(item.Numero_Factura),
                     Lectura_Anterior = item.Lectura_Anterior,
                     Lectura_Actual = item.Lectura_Actual,
                     Consumo = item.Consumo,
@@ -104,7 +104,7 @@ namespace SistemWalter.Controllers
             pagosfecha.Id = pago.Id;
             pagosfecha.Lectura_Id = pago.Lectura_Id;
             pagosfecha.ClienteId = pago.ClienteId;
-            pagosfecha.Numero_Factura = pago.Numero_Factura;
+            pagosfecha.Numero_Factura = Convert.ToInt32(pago.Numero_Factura);
             pagosfecha.Lectura_Anterior = pago.Lectura_Anterior;
             pagosfecha.Lectura_Actual = pago.Lectura_Actual;
             pagosfecha.Consumo = pago.Consumo;
@@ -281,7 +281,7 @@ namespace SistemWalter.Controllers
                 }
 
                 var moras = (from m in db.MoraClientes
-                             where m.ClienteId == lectura.ClientesId && m.Estado == 0
+                             where m.ClienteId == lectura.ClientesId && m.Estado == 1
                              select m.Total).Sum();
 
                 var pagos_pendientes = (from p in db.Pagos
@@ -354,9 +354,15 @@ namespace SistemWalter.Controllers
                 var numeroFactura = (from p in db.Pagos
                                      select p.Numero_Factura).Max();
 
-
+                if(numeroFactura == null)
+                {
+                    pago.Numero_Factura = 1;
+                }
+                else
+                {
+                    pago.Numero_Factura = numeroFactura + 1;
+                }
                 
-                //pago.Numero_Factura = numeroFactura == 0: 1 ? (numeroFactura + 1);
                 pago.Lectura_Anterior = lec_ant;
                 pago.Lectura_Id = lectura.Id;
                 pago.ClienteId = lectura.ClientesId;

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemWalter.Context.Lectura>
+﻿@model List<SistemWalter.ViewModels.LecturasView>
 
 @{
     ViewBag.Title = "Index";
@@ -10,25 +10,55 @@
     @Html.ActionLink("Crear nuevo registro", "Create") |
     @Html.ActionLink("Generar Facturas", "Asignarpago", "Pagoes", null, null)
 </p>
+
+<div class="row"> 
+    <div class="col-md-4">
+        
+    </div>
+    <div class="col-md-8">
+        @using (Html.BeginForm())
+        {
+        <div class="form-inline">
+            <select name="Meses" class="form-control">
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+            <input type="text" name="parametro" class="form-control" placeholder="Nombre del cliente" />
+            <input type="submit" class="btn btn-primary" value="Buscar" />
+        </div>
+        }
+    </div>
+</div>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Lectura1)
+        Lecturas
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Estado_Lectura)
+           Estado de Lecturas
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Estado)
+            Estado
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Fecha_Registro)
+          Fecha de Registros
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Mes)
+          Mes
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cliente.Nombre_Completo)
+           Cliente
         </th>
         <th></th>
     </tr>
@@ -42,7 +72,14 @@
             @Html.DisplayFor(modelItem => item.Estado_Lectura)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Estado)
+            @if (item.Estado == 1)
+            {
+                <font>Pendiente</font>
+            }
+            else
+            {
+                <font>Facturado</font>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Fecha_Registro)
@@ -51,7 +88,7 @@
             @Html.DisplayFor(modelItem => item.Mes)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
+            @Html.DisplayFor(modelItem => item.NombreCliente)
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |

@@ -11,7 +11,7 @@ namespace SistemWalter.ViewModels
         public int Id { get; set; }
         public Nullable<int> Lectura_Id { get; set; }
         public Nullable<int> ClienteId { get; set; }
-        public string Numero_Factura { get; set; }
+        public int Numero_Factura { get; set; }
         public Nullable<int> Lectura_Anterior { get; set; }
         public Nullable<int> Lectura_Actual { get; set; }
         public Nullable<int> Consumo { get; set; }

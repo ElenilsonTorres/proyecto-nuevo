@@ -17,7 +17,10 @@ namespace SistemWalter.Controllers
         // GET: MoraClientes
         public ActionResult Index()
         {
-            var moraClientes = db.MoraClientes.Include(m => m.Cliente);
+            var moraClientes = (from m in db.MoraClientes
+                                where m.Estado == 1
+                                orderby m.Meses descending
+                                select m);
             return View(moraClientes.ToList());
         }
 

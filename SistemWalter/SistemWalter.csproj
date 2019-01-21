@@ -179,67 +179,67 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Context\AspNetRole.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\AspNetUser.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\AspNetUserClaim.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\AspNetUserLogin.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Context\BaseSW.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BaseSW.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Context\BaseSW.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BaseSW.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Context\BaseSW.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BaseSW.edmx</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\Cliente.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\Configuracione.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\C__MigrationHistory.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\Empleado.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\Empresa.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\Inscripcione.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\Lectura.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\MoraCliente.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\Pago.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\PagoInscripcion.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\SistemadeAguaEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SistemadeAguaEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\SistemadeAguaEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\SistemadeAguaEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SistemadeAguaEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Context\sysdiagram.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\Tbl_Fechas.cs">
-      <DependentUpon>BaseSW.tt</DependentUpon>
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
@@ -267,6 +267,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\LecturasView.cs" />
     <Compile Include="ViewModels\PagosView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -275,15 +276,15 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\Confidencial.png" />
-    <Content Include="Context\BaseSW.Context.tt">
+    <Content Include="Context\SistemadeAguaEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BaseSW.edmx</DependentUpon>
-      <LastGenOutput>BaseSW.Context.cs</LastGenOutput>
+      <DependentUpon>SistemadeAguaEntities.edmx</DependentUpon>
+      <LastGenOutput>SistemadeAguaEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Context\BaseSW.tt">
+    <Content Include="Context\SistemadeAguaEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BaseSW.edmx</DependentUpon>
-      <LastGenOutput>BaseSW.cs</LastGenOutput>
+      <DependentUpon>SistemadeAguaEntities.edmx</DependentUpon>
+      <LastGenOutput>SistemadeAguaEntities.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -295,14 +296,14 @@
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Context\BaseSW.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BaseSW.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Context\BaseSW.edmx.diagram">
-      <DependentUpon>BaseSW.edmx</DependentUpon>
-    </Content>
     <Content Include="App_Browsers\qt.browser" />
+    <EntityDeploy Include="Context\SistemadeAguaEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SistemadeAguaEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Context\SistemadeAguaEntities.edmx.diagram">
+      <DependentUpon>SistemadeAguaEntities.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

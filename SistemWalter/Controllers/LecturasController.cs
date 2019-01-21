@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SistemWalter.Context;
+using SistemWalter.ViewModels;
 
 namespace SistemWalter.Controllers
 {
@@ -24,8 +26,58 @@ namespace SistemWalter.Controllers
                                        select l).ToList();
 
             var facturas_pendientes = Todas_lecturas.Except(lecturas_confactura);
+
+            List<LecturasView> lecturasView = new List<LecturasView>();
+
+            foreach (var item in facturas_pendientes)
+            {
+                var factura = new LecturasView
+                {
+                    Id = item.Id,
+                    Lectura1 = item.Lectura1,
+                    Estado_Lectura = item.Estado_Lectura,
+                    Estado = item.Estado,
+                    Fecha_Registro = item.Fecha_Registro,
+                    Mes = nombreMes(Convert.ToInt32(item.Mes)),
+                    ClientesId = item.ClientesId,
+                    NombreCliente = item.Cliente.Nombre_Completo
+                };
+
+                lecturasView.Add(factura);
+            }
+
+
                                        
-            return View(facturas_pendientes.ToList());
+            return View(lecturasView.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Index(string Meses, string parametro)
+        {
+            int mes = int.Parse(Meses);
+            var lect = (from c in db.Lecturas
+                            where c.Cliente.Nombre_Completo.Contains(parametro) && c.Fecha_Registro.Value.Month == mes
+                            select c).ToList();
+
+            List<LecturasView> lecturasView = new List<LecturasView>();
+
+            foreach (var item in lect)
+            {
+                var factura = new LecturasView
+                {
+                    Id = item.Id,
+                    Lectura1 = item.Lectura1,
+                    Estado_Lectura = item.Estado_Lectura,
+                    Estado = item.Estado,
+                    Fecha_Registro = item.Fecha_Registro,
+                    Mes = nombreMes(Convert.ToInt32(item.Mes)),
+                    ClientesId = item.ClientesId,
+                    NombreCliente = item.Cliente.Nombre_Completo
+                };
+
+                lecturasView.Add(factura);
+            }
+            return View(lecturasView);
         }
 
         // GET: Lecturas/Details/5
@@ -59,6 +111,9 @@ namespace SistemWalter.Controllers
         {
             if (ModelState.IsValid)
             {
+                lectura.Estado_Lectura = "Actual";
+                lectura.Estado = 1;
+                lectura.Mes = DateTime.Now.Month;
                 db.Lecturas.Add(lectura);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -125,6 +180,21 @@ namespace SistemWalter.Controllers
             db.Lecturas.Remove(lectura);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private string nombreMes(int numeroMes)
+        {
+            try
+            {
+                DateTimeFormatInfo formatoFecha = new DateTimeFormatInfo();
+                string nombreMes = formatoFecha.GetMonthName(numeroMes);
+                return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(nombreMes);
+            }
+            catch (Exception)
+            {
+
+                return "Desconocido";
+            }
         }
 
         protected override void Dispose(bool disposing)
