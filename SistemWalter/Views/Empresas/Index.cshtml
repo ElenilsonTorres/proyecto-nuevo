@@ -7,69 +7,71 @@
 <h2>Empresa</h2>
 
 <p>
-    @Html.ActionLink("Crear registro", "Create")
+    @Html.ActionLink("Crear nuevo registro", "Create", new { }, new { @class = "btn btn-primary" })
+    @*@Html.ActionLink("Crear registro", "Create")*@
 </p>
-<table class="table">
+<table class="table alert-info">
     <tr>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Direccion)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Correo)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.NIT)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Rubro)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Telefono)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Estado)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Fecha_Registro)
         </th>
-        <th></th>
+        <th class="active alert-danger"></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Direccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Correo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NIT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rubro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha_Registro)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Correo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NIT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rubro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha_Registro)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+            </td>
+        </tr>
+    }
 
 </table>

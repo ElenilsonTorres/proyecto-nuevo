@@ -7,45 +7,47 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create")*@
+    @Html.ActionLink("Crear nuevo registro", "Create", new { }, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
-    <tr>
-        <th>
+<table class="table alert-info">
+    <tr class="">
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Fecha_Pago)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Fecha_Vencimiento)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Mes)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Anio)
         </th>
-        <th></th>
+        <th class="active alert-danger"></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha_Pago)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha_Vencimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Anio)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdFecha }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdFecha }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdFecha })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha_Pago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha_Vencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anio)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.IdFecha }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit" })
+                @Html.ActionLink("Details", "Details", new { id = item.IdFecha }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdFecha }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+            </td>
+        </tr>
+    }
 
 </table>

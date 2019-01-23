@@ -7,7 +7,8 @@
 <h2>Lecturas</h2>
 
 <p>
-    @Html.ActionLink("Crear nuevo registro", "Create") |
+    @Html.ActionLink("Crear nuevo registro", "Create", new { }, new { @class = "btn btn-primary" })
+    @*@Html.ActionLink("Crear nuevo registro", "Create")*@ |
     @Html.ActionLink("Generar Facturas", "Asignarpago", "Pagoes", null, null)
 </p>
 
@@ -42,25 +43,25 @@
 
 <table class="table">
     <tr>
-        <th>
-        Lecturas
+        <th class="active alert-danger">
+            Lecturas
         </th>
-        <th>
-           Estado de Lecturas
+        <th class="active alert-danger">
+            Estado de Lecturas
         </th>
-        <th>
+        <th class="active alert-danger">
             Estado
         </th>
-        <th>
-          Fecha de Registros
+        <th class="active alert-danger">
+            Fecha de Registros
         </th>
-        <th>
-          Mes
+        <th class="active alert-danger">
+            Mes
         </th>
-        <th>
-           Cliente
+        <th class="active alert-danger">
+            Cliente
         </th>
-        <th></th>
+        <th class="active alert-danger"></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -91,11 +92,11 @@
             @Html.DisplayFor(modelItem => item.NombreCliente)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit" })
             @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-            
-         
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+
+
         </td>
     </tr>
 }

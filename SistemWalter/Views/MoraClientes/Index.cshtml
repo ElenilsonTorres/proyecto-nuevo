@@ -7,39 +7,41 @@
 <h2>Moras de Clientes</h2>
 
 <p>
-    @Html.ActionLink("Crear nuevo registro", "Create")
+    @*@Html.ActionLink("Crear nuevo registro", "Create")*@
+    @Html.ActionLink("Crear nuevo registro", "Create", new { }, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table alert-info">
     <tr>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Meses)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Total)
         </th>
-        <th>
+        <th class="active alert-danger">
             @Html.DisplayNameFor(model => model.Cliente.Nombre_Completo)
         </th>
-        <th></th>
+        <th class="active alert-danger"></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Meses)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Total)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Meses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit" }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+            </td>
+        </tr>
+    }
 
 </table>
