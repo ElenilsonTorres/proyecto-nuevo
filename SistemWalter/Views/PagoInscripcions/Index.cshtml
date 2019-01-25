@@ -3,7 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<br />
+<br />
+<br />
 <h2>pago de Ins</h2>
 
 <p>
@@ -48,9 +50,12 @@
             @Html.DisplayFor(modelItem => item.Inscripcione.Estado)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit" })
-            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+            @Html.ActionLink(".", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit", @title = "Editar Cliente" })
+            |
+            @Html.ActionLink(".", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon glyphicon-open-file", @title = "Detalles" })
+            |
+            @Html.ActionLink(".", "Delete", new { id = item.Id }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+
         </td>
     </tr>
 }

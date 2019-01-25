@@ -4,14 +4,16 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Crear</h2>
-
-
-@using (Html.BeginForm()) 
+<br />
+<br />
+<br />
+<br />
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
+
         <h4>Empresa</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

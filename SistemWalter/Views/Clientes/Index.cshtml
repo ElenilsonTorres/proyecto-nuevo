@@ -90,11 +90,11 @@
                         @Html.DisplayFor(modelItem => item.Fecha_Registro)
                     </td>
                     <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new {@class= "btn btn-success glyphicon glyphicon glyphicon-edit" }) 
+                        @Html.ActionLink(".", "Edit", new { id = item.Id }, new {@class= "btn btn-success glyphicon glyphicon glyphicon-edit" }) 
                         |
-                        @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn  alert-success glyphicon glyphicon glyphicon-open-file" }) 
+                        @Html.ActionLink(".", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon glyphicon-open-file" }) 
                         |
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+                        @Html.ActionLink(".", "Delete", new { id = item.Id }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
 
 
                         @Html.ActionLink("Ver Pagos", "VerPagos", "Pagoes", new { id = item.Id }, null )
