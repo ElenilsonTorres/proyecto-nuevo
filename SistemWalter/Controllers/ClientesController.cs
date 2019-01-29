@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SistemWalter.Context;
+using SistemWalter.ViewModel;
+using SistemWalter.ViewModels;
 
 namespace SistemWalter.Controllers
 {
@@ -15,9 +17,26 @@ namespace SistemWalter.Controllers
         private SistemadeAguaEntities db = new SistemadeAguaEntities();
 
         // GET: Clientes
-        public ActionResult Index()
+        public ActionResult Index( int pagina = 1)
         {
-            return View(db.Clientes.ToList());
+            var cantidadRegistrosPorPagina = 5; // parámetro
+           
+
+                var personas = db.Clientes.OrderBy(x => x.Id)
+                    .Skip((pagina - 1) * cantidadRegistrosPorPagina)
+                    .Take(cantidadRegistrosPorPagina).ToList();
+                var totalDeRegistros = db.Clientes.Count();
+
+                var modelo = new IndexViewModel();
+                modelo.clientes = personas;
+                modelo.PaginaActual = pagina;
+                modelo.TotalDeRegistros = totalDeRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistrosPorPagina;
+
+
+                return View(modelo);
+
+
         }
 
         [HttpPost]

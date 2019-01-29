@@ -32,6 +32,7 @@
         <AssociationConnector Association="SistemadeAguaModel.AspNetUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="SistemadeAguaModel.FK_Pagos_Clientes" />
         <AssociationConnector Association="SistemadeAguaModel.FK_Pagos_Lecturas" />
+        <AssociationConnector Association="SistemadeAguaModel.FK_MoraClientes_Pagos" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -162,6 +162,7 @@
           <Property Name="Total" Type="decimal" Precision="5" Scale="2" />
           <Property Name="Estado" Type="int" />
           <Property Name="Fecha_Registro" Type="date" />
+          <Property Name="Idpago" Type="int" />
         </EntityType>
         <EntityType Name="PagoInscripcion">
           <Key>
@@ -342,6 +343,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MoraClientes_Pagos">
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="0..1" />
+          <End Role="MoraClientes" Type="Self.MoraClientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pagos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MoraClientes">
+              <PropertyRef Name="Idpago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pagos_Clientes">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
@@ -423,6 +436,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoraClientes_Pagos" Association="Self.FK_MoraClientes_Pagos">
+            <End Role="Pagos" EntitySet="Pagos" />
+            <End Role="MoraClientes" EntitySet="MoraClientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Pagos_Clientes" Association="Self.FK_Pagos_Clientes">
             <End Role="Clientes" EntitySet="Clientes" />
@@ -604,6 +621,8 @@
           <Property Name="Estado" Type="Int32" />
           <Property Name="Fecha_Registro" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK__MoraClien__Clien__48CFD27E" FromRole="MoraClientes" ToRole="Clientes" />
+          <Property Name="Idpago" Type="Int32" />
+          <NavigationProperty Name="Pago" Relationship="SistemadeAguaModel.FK_MoraClientes_Pagos" FromRole="MoraCliente" ToRole="Pago" />
         </EntityType>
         <EntityType Name="PagoInscripcion">
           <Key>
@@ -639,6 +658,7 @@
           <Property Name="Fecha_Registro" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Cliente" Relationship="SistemadeAguaModel.FK_Pagos_Clientes" FromRole="Pago" ToRole="Cliente" />
           <NavigationProperty Name="Lectura" Relationship="SistemadeAguaModel.FK_Pagos_Lecturas" FromRole="Pago" ToRole="Lectura" />
+          <NavigationProperty Name="MoraClientes" Relationship="SistemadeAguaModel.FK_MoraClientes_Pagos" FromRole="Pago" ToRole="MoraCliente" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -825,6 +845,10 @@
             <End Role="Lectura" EntitySet="Lecturas" />
             <End Role="Pago" EntitySet="Pagos" />
           </AssociationSet>
+          <AssociationSet Name="FK_MoraClientes_Pagos" Association="SistemadeAguaModel.FK_MoraClientes_Pagos">
+            <End Role="Pago" EntitySet="Pagos" />
+            <End Role="MoraCliente" EntitySet="MoraClientes" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Pagos_Clientes">
           <End Type="SistemadeAguaModel.Cliente" Role="Cliente" Multiplicity="0..1" />
@@ -847,6 +871,18 @@
             </Principal>
             <Dependent Role="Pago">
               <PropertyRef Name="Lectura_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoraClientes_Pagos">
+          <End Type="SistemadeAguaModel.Pago" Role="Pago" Multiplicity="0..1" />
+          <End Type="SistemadeAguaModel.MoraCliente" Role="MoraCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pago">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MoraCliente">
+              <PropertyRef Name="Idpago" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1006,6 +1042,7 @@
           <EntitySetMapping Name="MoraClientes">
             <EntityTypeMapping TypeName="SistemadeAguaModel.MoraCliente">
               <MappingFragment StoreEntitySet="MoraClientes">
+                <ScalarProperty Name="Idpago" ColumnName="Idpago" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
                 <ScalarProperty Name="Meses" ColumnName="Meses" />

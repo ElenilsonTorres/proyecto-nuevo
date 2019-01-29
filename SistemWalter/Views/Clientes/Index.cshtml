@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemWalter.Context.Cliente>
+﻿@model SistemWalter.ViewModel.IndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -36,30 +36,30 @@
                     Nombre
                 </th>
                 <th class="active alert-danger">
-                    @Html.DisplayNameFor(model => model.DUI)
+                    DUI
                 </th>
                 <th class="active alert-danger">
-                    @Html.DisplayNameFor(model => model.Telefono)
+                    TELEFONO
                 </th>
                 <th class="active alert-danger">
-                    @Html.DisplayNameFor(model => model.Correo)
+                    CORREO
                 </th>
                 <th class="active alert-danger">
-                    @Html.DisplayNameFor(model => model.Direccion)
+                    DIRECION
                 </th>
                 <th class="active alert-danger">
                     Fecha Nacimiento
                 </th>
                 <th class="active alert-danger">
-                    @Html.DisplayNameFor(model => model.Estado)
+                    ESTADO
                 </th>
                 <th class="active alert-danger">
-                    @Html.DisplayNameFor(model => model.Fecha_Registro)
+                    FECHA REGISTRO
                 </th>
                 <th class="active alert-danger"></th>
             </tr>
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.clientes)
             {
                 <tr>
                     <td>
@@ -90,14 +90,15 @@
                         @Html.DisplayFor(modelItem => item.Fecha_Registro)
                     </td>
                     <td>
-                        @Html.ActionLink(".", "Edit", new { id = item.Id }, new {@class= "btn btn-success glyphicon glyphicon glyphicon-edit" }) 
+                        @Html.ActionLink(" " +
+                       "", "Edit", new { id = item.Id }, new {@class= "btn btn-success glyphicon glyphicon glyphicon-edit" })
                         |
-                        @Html.ActionLink(".", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon glyphicon-open-file" }) 
+                        @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon glyphicon-open-file" })
                         |
-                        @Html.ActionLink(".", "Delete", new { id = item.Id }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
 
 
-                        @Html.ActionLink("Ver Pagos", "VerPagos", "Pagoes", new { id = item.Id }, null )
+                        @Html.ActionLink("Ver Pagos", "VerPagos", "Pagoes", new { id = item.Id }, null)
                     </td>
                 </tr>
             }
@@ -105,3 +106,4 @@
         </table>
     </div>
 </div>
+@{Html.RenderPartial("_paginador", Model);}

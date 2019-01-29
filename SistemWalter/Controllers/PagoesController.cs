@@ -24,6 +24,11 @@ namespace SistemWalter.Controllers
                          orderby p.Total descending
                          select p).ToList();
 
+            var pagosMora = (from p in db.Pagos
+                             join m in db.MoraClientes on p.ClienteId equals m.ClienteId
+                             where m.Estado == 1
+                             select m).ToList();
+
             var pagos_pendientes = new List<PagosView>();
 
             foreach (var item in pagos)
@@ -51,7 +56,11 @@ namespace SistemWalter.Controllers
                 var existe = (from p in pagos_pendientes
                               where p.ClienteId == item.ClienteId
                               select p).FirstOrDefault();
-                if(existe == null)
+
+                var existeMora = (from m in pagosMora
+                                  where m.Idpago == item.Id && m.Estado == 1
+                                  select m).FirstOrDefault();
+                if(existe == null && existeMora == null)
                 {
                     pagos_pendientes.Add(pago);
                 }
@@ -60,7 +69,19 @@ namespace SistemWalter.Controllers
             return View(pagos_pendientes.ToList());
         }
 
-        public ActionResult VerPagos(int? id)
+        ////agregar buscador o filtrador
+        //[HttpPost]
+        //public ActionResult Index(string Meses, string parametro)
+        //{
+        //    int mes = int.Parse(Meses);
+        //    var lect = (from c in db.Pagos
+        //                where c.Cliente.Nombre_Completo.Contains(parametro) && c.Fecha_Registro.Value.Month == mes
+        //                select c).ToList();
+
+        //    return View();
+        //}
+
+            public ActionResult VerPagos(int? id)
         {
             if (id == null)
             {

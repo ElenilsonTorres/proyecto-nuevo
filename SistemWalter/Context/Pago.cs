@@ -14,6 +14,12 @@ namespace SistemWalter.Context
     
     public partial class Pago
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Pago()
+        {
+            this.MoraClientes = new HashSet<MoraCliente>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> Lectura_Id { get; set; }
         public Nullable<int> ClienteId { get; set; }
@@ -32,5 +38,7 @@ namespace SistemWalter.Context
     
         public virtual Cliente Cliente { get; set; }
         public virtual Lectura Lectura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MoraCliente> MoraClientes { get; set; }
     }
 }

@@ -20,7 +20,9 @@ namespace SistemWalter.Context
         public Nullable<decimal> Total { get; set; }
         public Nullable<int> Estado { get; set; }
         public Nullable<System.DateTime> Fecha_Registro { get; set; }
+        public Nullable<int> Idpago { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        public virtual Pago Pago { get; set; }
     }
 }
