@@ -404,6 +404,7 @@
     <Content Include="Views\Tbl_Fechas\Index.cshtml" />
     <Content Include="Views\Shared\_paginador.cshtml" />
     <Content Include="Views\Home\lecmensu.cshtml" />
+    <Content Include="Views\Pagoes\PagosRealizados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

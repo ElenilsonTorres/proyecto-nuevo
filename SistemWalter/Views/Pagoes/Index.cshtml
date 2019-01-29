@@ -13,7 +13,7 @@
     <div class="col-md-6">
     </div>
     <div class="col-md-6">
-        @using (Html.BeginForm())
+        @*@using (Html.BeginForm())
         {
             <div class="form-inline">
                 <select name="Meses" class="form-control">
@@ -33,12 +33,12 @@
                 <input type="text" name="parametro" class="form-control" placeholder="Nombre del cliente" />
                 <input type="submit" class="btn btn-primary" value="Buscar" />
             </div>
-        }
+        }*@
     </div>
     <br />
 
     @*falta agregar el buscador o filtrado*@
-    @Html.ActionLink("Generar Mora", "GenerarMora", "MoraClientes", new { }, new { @class = "btn btn-primary" })
+    <a href="#" class="btn btn-primary" id="generarMora">Generar Mora</a>
 </div>
 
 @Rol
@@ -107,4 +107,32 @@
     </div>
 
 </div>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+
+            $("#generarMora").click(function(){
+                swal({
+                    title: "¿Estás seguro de generar mora para estos pagos?",
+                    text: "Una vez generado, se asignará un cargo de $1.50 para cada cliente",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if(willDelete) {
+                        location.href = '/MoraClientes/GenerarMora';
+                    } else {
+                        
+                    }
+                });
+        });
+            
+        });
+        
+    </script>
+    }
+
 

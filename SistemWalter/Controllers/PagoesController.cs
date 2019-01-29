@@ -95,6 +95,51 @@ namespace SistemWalter.Controllers
             return View(pagos);
         }
 
+        public ActionResult PagosRealizados ()
+        {
+            var pagos = (from p in db.Pagos
+                         where p.Fecha_Registro.Value.Month == DateTime.Now.Month && p.Estado == 0
+                         orderby p.Id ascending
+                         select p).ToList();
+
+            ViewBag.totalPagos = (from p in db.Pagos
+                         where p.Fecha_Registro.Value.Month == DateTime.Now.Month && p.Estado == 0
+                                  orderby p.Id ascending
+                                  select p.Total).Sum();
+            return View(pagos);
+        }
+
+        [HttpPost]
+        public ActionResult PagosRealizados(string Desde, string Hasta, string parametro)
+        {
+            DateTime desde = Convert.ToDateTime(Desde);
+            DateTime hasta = Convert.ToDateTime(Hasta);
+            var pagos = (from p in db.Pagos
+                         where (p.Fecha_Registro.Value >= desde && p.Fecha_Registro <= hasta)
+                         orderby p.Id ascending
+                         select p).ToList();
+
+            ViewBag.totalPagos = (from p in db.Pagos
+                                  where (p.Fecha_Registro.Value >= desde && p.Fecha_Registro <= hasta)
+                                  orderby p.Id ascending
+                                  select p.Total).Sum();
+            return View(pagos);
+        }
+
+        public ActionResult TodosPagos()
+        {
+            var pagos = (from p in db.Pagos
+                         where p.Estado == 0
+                         orderby p.Id ascending
+                         select p).ToList();
+
+            ViewBag.totalPagos = (from p in db.Pagos
+                                  where p.Estado == 0
+                                  orderby p.Id ascending
+                                  select p.Total).Sum();
+            return View("PagosRealizados", pagos);
+        }
+
         public ActionResult ConvertirPDF(int id)
         {
             var clienteId = id;

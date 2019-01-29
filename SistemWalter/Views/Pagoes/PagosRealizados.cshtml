@@ -1,0 +1,111 @@
+﻿@model IEnumerable<SistemWalter.Context.Pago>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-md-4">
+        @Html.ActionLink("Ver todos", "TodosPagos", "Pagoes", new { @class = "btn btn-primary"})
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="col-md-8">
+        @using (Html.BeginForm())
+        {
+            //if (User.IsInRole("Administrador"))
+            //{
+        <div class="form-inline">
+            @*<select name="Meses" class="form-control">
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>*@
+            <label for="Desde">Desde: </label>
+            <input type="date" name="Desde" id="Desde" class="form-control" />
+            <label for="Hasta">Hasta: </label>
+            <input type="date" name="Hasta" id="Hasta" class="form-control" />
+            <input type="submit" class="btn btn-primary" value="Buscar" />
+        </div>
+            //}
+
+        }
+    </div>
+    <br />
+
+</div>
+
+
+<div class="row">
+
+    <div class="table-responsive">
+        <table class="table alert-info">
+            <tr>
+                <th class="active alert-danger">
+                    Cliente
+                </th>
+                <th class="active alert-danger">
+                    N° Factura
+                </th>
+                <th class="active alert-danger">
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+                <th class="active alert-danger">
+                    Fecha Registro
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numero_Factura)
+                    </td>
+                    <td>
+                       $ @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha_Registro)
+                    </td>
+                </tr>
+            }
+            <tr class="alert-link">
+                <th>
+                    Totales
+                </th>
+                <td>
+
+                </td>
+                <th>
+                  $  @ViewBag.totalPagos
+                </th>
+            </tr>
+
+        </table>
+    </div>
+
+</div>
+

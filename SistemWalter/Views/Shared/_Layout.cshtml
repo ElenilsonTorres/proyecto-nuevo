@@ -9,54 +9,56 @@
 
 </head>
 <body>
-    
-        <div class="navbar navbar-inverse navbar-fixed-top alert-info" style="background-color:#0ee2cf">
-            <br />
-            <div class="container">
-                <br />
-                <div class="navbar-header ">
-                    <br />
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav alert-link ">
-                        <br />
-                        @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
-                          <li>@Html.ActionLink("About", "About", "Home")</li>
-                          <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                        <p style="color:#FF0000" ;>
-                        <li class="active">@Html.ActionLink("Configuraciones", "Index", "Configuraciones")</li>
-                        <li class="active">@Html.ActionLink("Clientes", "Index", "Clientes")</li>
-                        <li class="active">@Html.ActionLink("Empleados", "Index", "Empleadoes")</li>
-                        <li class="active">@Html.ActionLink("Empresas", "Index", "Empresas")</li>
-                        <li class="active">@Html.ActionLink("Inscripciones", "Index", "Inscripciones")</li>
-                        <li class="active">@Html.ActionLink("Lecturas", "Index", "Lecturas")</li>
-                        <li class="active">@Html.ActionLink("Mora de Clientes", "Index", "MoraClientes")</li>
-                        <li class="active">@Html.ActionLink("Pagos", "Index", "Pagoes")</li>
-                        <li class="active">@Html.ActionLink("Pago de Inscripciones", "Index", "PagoInscripcions")</li>
-                        <li class="active">@Html.ActionLink("Fechas de pago", "Index", "Tbl_Fechas")</li>
-                        </p>
-                    </ul>
-                    @*@Html.Partial("_LoginPartial")*@
-                </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:white">
+        <div class="container-fluid">
+      
+            <div class="navbar-header ">
+               
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav alert-link ">
+                  
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <p style="color:#FF0000";>
+                    <li class="active">@Html.ActionLink("Configuraciones", "Index", "Configuraciones", new { }, new {@class = "btn btn-info"})</li>
+                    <li class="active">@Html.ActionLink("Clientes", "Index", "Clientes", new { }, new { @class = "btn btn-info" })</li>
+                    <li class="active">@Html.ActionLink("Empleados", "Index", "Empleadoes", new { }, new { @class = "btn btn-info" })</li>
+                    <li class="active">@Html.ActionLink("Empresas", "Index", "Empresas", new { }, new { @class = "btn btn-info" })</li>
+                    <li class="active">@Html.ActionLink("Inscripciones", "Index", "Inscripciones", new { }, new { @class = "btn btn-info" })</li>
+                    <li class="active">@Html.ActionLink("Lecturas", "Index", "Lecturas", new { }, new { @class = "btn btn-info" })</li>
+                    <li class="active">@Html.ActionLink("Mora de Clientes", "Index", "MoraClientes", new { }, new { @class = "btn btn-info" })</li>
+                    <li class="active">@Html.ActionLink("Pagos", "Index", "Pagoes", new { }, new { @class = "btn btn-info" })</li>
+                    <li class="active">@Html.ActionLink("Pago de Inscripciones", "Index", "PagoInscripcions", new { }, new { @class = "btn btn-info" })</li>
+                    <li class="active">@Html.ActionLink("Fechas de pago", "Index", "Tbl_Fechas", new { }, new { @class = "btn btn-info" })</li>
+                    <li class="active">@Html.ActionLink("Reporte", "PagosRealizados", "Pagoes", new { }, new { @class = "btn btn-info" })</li>
+                    </p>
+                </ul>
+                @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-      <p>&copy; @DateTime.Now.Year -Water_System</p>
-      </footer>
-      </div>
-    
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year -Water_System</p>
+        </footer>
+    </div>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>
