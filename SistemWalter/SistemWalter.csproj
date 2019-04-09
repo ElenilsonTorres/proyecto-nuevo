@@ -190,6 +190,9 @@
     <Compile Include="Context\AspNetUserLogin.cs">
       <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\Caja.cs">
+      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context\Cliente.cs">
       <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
@@ -235,13 +238,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SistemadeAguaEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Context\sysdiagram.cs">
-      <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Context\Tbl_Fechas.cs">
       <DependentUpon>SistemadeAguaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CajasController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ConfiguracionesController.cs" />
     <Compile Include="Controllers\EmpleadoesController.cs" />
@@ -314,10 +315,10 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -403,8 +404,12 @@
     <Content Include="Views\Tbl_Fechas\Edit.cshtml" />
     <Content Include="Views\Tbl_Fechas\Index.cshtml" />
     <Content Include="Views\Shared\_paginador.cshtml" />
-    <Content Include="Views\Home\lecmensu.cshtml" />
     <Content Include="Views\Pagoes\PagosRealizados.cshtml" />
+    <Content Include="Views\Cajas\Create.cshtml" />
+    <Content Include="Views\Cajas\Delete.cshtml" />
+    <Content Include="Views\Cajas\Details.cshtml" />
+    <Content Include="Views\Cajas\Edit.cshtml" />
+    <Content Include="Views\Cajas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,7 +12,7 @@ namespace SistemWalter.Controllers
 {
     public class PagoInscripcionsController : Controller
     {
-        private SistemadeAguaEntities db = new SistemadeAguaEntities();
+        private Sistemadeagua5Entities db = new Sistemadeagua5Entities();
 
         // GET: PagoInscripcions
         public ActionResult Index()

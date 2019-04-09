@@ -14,7 +14,7 @@ namespace SistemWalter.Controllers
 {
     public class LecturasController : Controller
     {
-        private SistemadeAguaEntities db = new SistemadeAguaEntities();
+        private Sistemadeagua5Entities db = new Sistemadeagua5Entities();
 
         // GET: Lecturas
         public ActionResult Index()

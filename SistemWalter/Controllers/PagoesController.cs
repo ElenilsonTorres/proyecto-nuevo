@@ -14,19 +14,19 @@ namespace SistemWalter.Controllers
 {
     public class PagoesController : Controller
     {
-        private SistemadeAguaEntities db = new SistemadeAguaEntities();
+        private Sistemadeagua5Entities db = new Sistemadeagua5Entities();
 
         // GET: Pagoes
         public ActionResult Index()
         {
             var pagos = (from p in db.Pagos 
-                         where p.Estado== 1
+                         where p.Estado == 1
                          orderby p.Total descending
                          select p).ToList();
 
             var pagosMora = (from p in db.Pagos
                              join m in db.MoraClientes on p.ClienteId equals m.ClienteId
-                             where m.Estado == 1
+                             where p.Estado == 1
                              select m).ToList();
 
             var pagos_pendientes = new List<PagosView>();
@@ -95,16 +95,15 @@ namespace SistemWalter.Controllers
             return View(pagos);
         }
 
-        public ActionResult PagosRealizados ()
+        public ActionResult PagosRealizados()
         {
             var pagos = (from p in db.Pagos
                          where p.Fecha_Registro.Value.Month == DateTime.Now.Month && p.Estado == 0
-                         orderby p.Id ascending
+                         orderby p.Total descending
                          select p).ToList();
 
-            ViewBag.totalPagos = (from p in db.Pagos
-                         where p.Fecha_Registro.Value.Month == DateTime.Now.Month && p.Estado == 0
-                                  orderby p.Id ascending
+            
+            ViewBag.totalPagos = (from p in pagos
                                   select p.Total).Sum();
             return View(pagos);
         }
@@ -112,16 +111,18 @@ namespace SistemWalter.Controllers
         [HttpPost]
         public ActionResult PagosRealizados(string Desde, string Hasta, string parametro)
         {
+
+
             DateTime desde = Convert.ToDateTime(Desde);
             DateTime hasta = Convert.ToDateTime(Hasta);
+           // poner condicion para cuando no se insertemn fechas en los  (viewbag.error)
+       
             var pagos = (from p in db.Pagos
                          where (p.Fecha_Registro.Value >= desde && p.Fecha_Registro <= hasta)
                          orderby p.Id ascending
                          select p).ToList();
 
-            ViewBag.totalPagos = (from p in db.Pagos
-                                  where (p.Fecha_Registro.Value >= desde && p.Fecha_Registro <= hasta)
-                                  orderby p.Id ascending
+            ViewBag.totalPagos = (from p in pagos
                                   select p.Total).Sum();
             return View(pagos);
         }
@@ -133,9 +134,7 @@ namespace SistemWalter.Controllers
                          orderby p.Id ascending
                          select p).ToList();
 
-            ViewBag.totalPagos = (from p in db.Pagos
-                                  where p.Estado == 0
-                                  orderby p.Id ascending
+                ViewBag.totalPagos = (from p in pagos
                                   select p.Total).Sum();
             return View("PagosRealizados", pagos);
         }
@@ -252,16 +251,19 @@ namespace SistemWalter.Controllers
                 }
                 else
                 {
-                    var pagos_pendientes = (from p in db.Pagos
-                                            where p.ClienteId == pago.ClienteId && p.Estado == 1
-                                            select p).ToList();
+                    //var pagos_pendientes = (from p in db.Pagos
+                    //                        where p.ClienteId == pago.ClienteId && p.Estado == 1
+                    //                        select p).ToList();
 
-                    foreach (var item in pagos_pendientes)
-                    {
-                        item.Estado = 0;
-                        db.Entry(item).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
+                    //foreach (var item in pagos_pendientes)
+                    //{
+                    //    item.Estado = 0;
+                    //    db.Entry(item).State = EntityState.Modified;
+                    //    db.SaveChanges();
+                    //}
+                    pago.Estado = 0;
+                    db.Entry(pago).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
                 
                 return RedirectToAction("Index");
@@ -386,27 +388,30 @@ namespace SistemWalter.Controllers
 
                 else if (consumo >= 13 && consumo < 20)
                 {
+                    var totalMetro2 = consumo - 12;
                     if (pagopendiente != 0)
                     {
-                        total = Convert.ToDecimal((consumo * metro2) + moras + pagopendiente + cuota_fija);
+                        
+                        total = Convert.ToDecimal((12 * metro1) + (totalMetro2 * metro2) + moras + pagopendiente + cuota_fija);
                     }
 
                     else
                     {
-                        total = Convert.ToDecimal((consumo * metro2) + moras + cuota_fija);
+                        total = Convert.ToDecimal((12 * metro1) + (totalMetro2 * metro2) + moras + cuota_fija);
                     }
                 }
 
                 else if (consumo >= 20)
                 {
+                    var totalMetro3 = consumo - 19;
                     if (pagopendiente != 0)
                     {
-                        total = Convert.ToDecimal((consumo * metro3) + moras + pagopendiente + cuota_fija);
+                        total = Convert.ToDecimal((12 * metro1) + (7 * metro2) + (totalMetro3 * metro3) + moras + pagopendiente + cuota_fija);
                     }
 
                     else
                     {
-                        total = Convert.ToDecimal((consumo * metro3) + moras + cuota_fija);
+                        total = Convert.ToDecimal((12 * metro1) + (7 * metro2) + (totalMetro3 * metro3) + moras + cuota_fija);
                     }
                 }
 

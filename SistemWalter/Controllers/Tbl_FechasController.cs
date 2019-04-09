@@ -12,7 +12,7 @@ namespace SistemWalter.Controllers
 {
     public class Tbl_FechasController : Controller
     {
-        private SistemadeAguaEntities db = new SistemadeAguaEntities();
+        private Sistemadeagua5Entities db = new Sistemadeagua5Entities();
 
         // GET: Tbl_Fechas
         public ActionResult Index()

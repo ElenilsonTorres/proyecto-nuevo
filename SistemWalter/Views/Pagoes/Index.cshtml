@@ -5,134 +5,141 @@
 
     var Rol = Convert.ToString(Session["Rol"]);
 }
-<br />
-<br />
-<br />
-<br />
-<div class="row">
-    <div class="col-md-6">
-    </div>
-    <div class="col-md-6">
-        @*@using (Html.BeginForm())
-        {
-            <div class="form-inline">
-                <select name="Meses" class="form-control">
-                    <option value="1">Enero</option>
-                    <option value="2">Febrero</option>
-                    <option value="3">Marzo</option>
-                    <option value="4">Abril</option>
-                    <option value="5">Mayo</option>
-                    <option value="6">Junio</option>
-                    <option value="7">Julio</option>
-                    <option value="8">Agosto</option>
-                    <option value="9">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
-                </select>
-                <input type="text" name="parametro" class="form-control" placeholder="Nombre del cliente" />
-                <input type="submit" class="btn btn-primary" value="Buscar" />
-            </div>
-        }*@
-    </div>
+<body style="background-color:cadetblue">
     <br />
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+            @*@using (Html.BeginForm())
+                {
+                    <div class="form-inline">
+                        <select name="Meses" class="form-control">
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                        <input type="text" name="parametro" class="form-control" placeholder="Nombre del cliente" />
+                        <input type="submit" class="btn btn-primary" value="Buscar" />
+                    </div>
+                }*@
+        </div>
+        <br />
 
-    @*falta agregar el buscador o filtrado*@
-    <a href="#" class="btn btn-primary" id="generarMora">Generar Mora</a>
-</div>
-
-@Rol
-
-
-<div class="row">
-
-    <div class="table-responsive">
-        <table class="table alert-info">
-            <tr>
-                <th class="active alert-danger">
-                    Cliente
-                </th>
-                <th class="active alert-danger">
-                    N° Factura
-                </th>
-                <th class="active alert-danger">
-                    @Html.DisplayNameFor(model => model.Consumo)
-                </th>
-                <th class="active alert-danger">
-                    Mes Atrasado
-                </th>
-                <th class="active alert-danger">
-                    @Html.DisplayNameFor(model => model.Total)
-                </th>
-                <th class="active alert-danger">
-                    Fecha Lectura
-                </th>
-
-                <th class="active alert-danger">
-                    Acciones
-                </th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NombreCliente)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Numero_Factura)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Consumo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Mes_Atrasado)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha_Lectura)
-                    </td>
-
-                    <td>
-                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon-usd", @title = "Asignar Pago" })
-                        @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-eye-open", @title = "Ver factura", @target = "_blank" })
-                        @*@Html.ActionLink(" ", "CrearMora", "MoraClientes", new { id = item.ClienteId }, new { @class = "btn btn-danger glyphicon glyphicon-scissors", @title = "Registrar Mora" })*@
-                    </td>
-                </tr>
-            }
-
-        </table>
+        @*falta agregar el buscador o filtrado*@
+        <a href="#" class="btn btn-primary" id="generarMora">Generar Mora</a>
     </div>
 
-</div>
+    @Rol
 
-@section scripts{
-    <script>
 
-        $(document).ready(function () {
+    <div class="row">
 
-            $("#generarMora").click(function(){
-                swal({
-                    title: "¿Estás seguro de generar mora para estos pagos?",
-                    text: "Una vez generado, se asignará un cargo de $1.50 para cada cliente",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if(willDelete) {
-                        location.href = '/MoraClientes/GenerarMora';
-                    } else {
-                        
-                    }
+        <div class="table-responsive">
+            <table class="table alert-info">
+                <tr>
+                    <th class="active alert-danger">
+                        Cliente
+                    </th>
+                    <th class="active alert-danger">
+                        N° Factura
+                    </th>
+                    <th class="active alert-danger">
+                        @Html.DisplayNameFor(model => model.Consumo)
+                    </th>
+                    <th class="active alert-danger">
+                        Mes Atrasado
+                    </th>
+                    <th class="active alert-danger">
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+                    <th class="active alert-danger">
+                        Fecha Lectura
+                    </th>
+
+                    <th class="active alert-danger">
+                        Acciones
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreCliente)<br />
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Numero_Factura)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Consumo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mes_Atrasado)
+                        </td>
+                        <td>
+                            $   @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Lectura)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon-usd", @title = "Asignar Pago" })
+                            @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-eye-open", @title = "Ver factura", @target = "_blank" })
+                            @*@Html.ActionLink(" ", "CrearMora", "MoraClientes", new { id = item.ClienteId }, new { @class = "btn btn-danger glyphicon glyphicon-scissors", @title = "Registrar Mora" })*@
+                        </td>
+                    </tr>
+
+                }
+
+
+            </table>
+        </div>
+
+    </div>
+
+    @section scripts{
+        <script>
+
+            $(document).ready(function () {
+
+                $("#generarMora").click(function () {
+                    swal({
+                        title: "¿Estás seguro de generar mora para estos pagos?",
+                        text: "Una vez generado, se asignará un cargo de $1.50 para cada cliente",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                location.href = '/MoraClientes/GenerarMora';
+                            } else {
+
+                            }
+                        });
                 });
-        });
-            
-        });
-        
-    </script>
+
+            });
+
+        </script>
     }
 
 
+    </body>

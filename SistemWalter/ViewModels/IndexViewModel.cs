@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SistemWalter.ViewModel
+namespace SistemWalter.ViewModels
 {
     public class IndexViewModel : BaseModelo
     {

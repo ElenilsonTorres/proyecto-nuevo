@@ -10,7 +10,7 @@ namespace SistemWalter.Controllers
 {
     public class HomeController : Controller
     {
-        private SistemadeAguaEntities db = new SistemadeAguaEntities();
+        private Sistemadeagua5Entities db = new Sistemadeagua5Entities();
         public ActionResult Index()
         {
             return View();
@@ -32,22 +32,22 @@ namespace SistemWalter.Controllers
 
 
 
-        [HttpPost]
-        public ActionResult lecmensu(int filtro)
-        {
-            var d= (from p in db.Pagos  where p.Fecha_Registro.Value.Month == filtro select p ).ToList();
+        //[HttpPost]
+        //public ActionResult lecmensu(int filtro)
+        //{
+        //    var d= (from p in db.Pagos  where p.Fecha_Registro.Value.Month == filtro select p ).ToList();
 
-            foreach(var i in d)
-            {
+        //    foreach(var i in d)
+        //    {
 
-            }
+        //    }
 
             
 
           
 
-            return View();
+            //return View();
   
-        }
     }
-    }
+}
+    

@@ -4,35 +4,35 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4ce665bec8b5448aa5de203ef4b1b8bc" Name="Diagram1">
-        <EntityTypeShape EntityType="SistemadeAguaModel.C__MigrationHistory" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.AspNetRole" Width="1.5" PointX="5.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.AspNetUser" Width="1.5" PointX="8" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.Cliente" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.Configuracione" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.Empleado" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.Empresa" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.Inscripcione" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.Lectura" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.MoraCliente" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.PagoInscripcion" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.Pago" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.sysdiagram" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemadeAguaModel.Tbl_Fechas" Width="1.5" PointX="4.75" PointY="12.75" IsExpanded="true" />
-        <AssociationConnector Association="SistemadeAguaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemadeAguaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemadeAguaModel.FK__Inscripci__Clien__3B75D760" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemadeAguaModel.FK__Lecturas__Client__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemadeAguaModel.FK__MoraClien__Clien__48CFD27E" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemadeAguaModel.FK__PagoInscr__Clien__3F466844" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemadeAguaModel.FK__Empleados__Empre__34C8D9D1" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemadeAguaModel.FK__PagoInscr__Inscr__3E52440B" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemadeAguaModel.AspNetUserRoles" ManuallyRouted="false" />
-        <AssociationConnector Association="SistemadeAguaModel.FK_Pagos_Clientes" />
-        <AssociationConnector Association="SistemadeAguaModel.FK_Pagos_Lecturas" />
-        <AssociationConnector Association="SistemadeAguaModel.FK_MoraClientes_Pagos" />
+      <Diagram DiagramId="f674e4a4295d47caa562faa9c8eecd74" Name="Diagram1">
+        <EntityTypeShape EntityType="Sistemadeagua5Model.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.AspNetRole" Width="1.5" PointX="9.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.AspNetUser" Width="1.5" PointX="12" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.Caja" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.Cliente" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.Configuracione" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.Empleado" Width="1.5" PointX="12" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.Empresa" Width="1.5" PointX="9.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.Inscripcione" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.Lectura" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.MoraCliente" Width="1.5" PointX="7.5" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.PagoInscripcion" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.Pago" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sistemadeagua5Model.Tbl_Fechas" Width="1.5" PointX="9.75" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK__Inscripci__Clien__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK__Lecturas__Client__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK__MoraClien__Clien__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK__PagoInscr__Clien__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK_Pagos_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK__Empleados__Empre__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK__PagoInscr__Inscr__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK_Pagos_Lecturas" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.FK_MoraClientes_Pagos" ManuallyRouted="false" />
+        <AssociationConnector Association="Sistemadeagua5Model.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

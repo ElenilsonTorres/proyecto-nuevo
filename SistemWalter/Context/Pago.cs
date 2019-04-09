@@ -11,7 +11,8 @@ namespace SistemWalter.Context
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Pago
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,9 +32,15 @@ namespace SistemWalter.Context
         public Nullable<decimal> Mes_Atrasado { get; set; }
         public Nullable<decimal> Mora { get; set; }
         public Nullable<decimal> Total { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Fecha_Lectura { get; set; }
-        public Nullable<System.DateTime> Fecha_Pago { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> Fecha_Pago { get; set; }     
         public Nullable<int> Estado { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Fecha_Registro { get; set; }
     
         public virtual Cliente Cliente { get; set; }

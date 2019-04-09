@@ -7,58 +7,62 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-</head>
-<body>
+</head><body onload="My_onLoad()" >
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container" >
+            <div class="navbar-header">
+                <div class="navbar-header ">
 
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:white">
-        <div class="container-fluid">
-      
-            <div class="navbar-header ">
-               
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav alert-link ">
-                  
-                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
-        <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                </div>
+                <div class="navbar-collapse arrow">
+
+                    <ul class="nav navbar-nav">
+
+                        @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                        @*<li>@Html.ActionLink("About", "About", "Home")</li>
         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                    <p style="color:#FF0000";>
-                    <li class="active">@Html.ActionLink("Configuraciones", "Index", "Configuraciones", new { }, new {@class = "btn btn-info"})</li>
-                    <li class="active">@Html.ActionLink("Clientes", "Index", "Clientes", new { }, new { @class = "btn btn-info" })</li>
-                    <li class="active">@Html.ActionLink("Empleados", "Index", "Empleadoes", new { }, new { @class = "btn btn-info" })</li>
-                    <li class="active">@Html.ActionLink("Empresas", "Index", "Empresas", new { }, new { @class = "btn btn-info" })</li>
-                    <li class="active">@Html.ActionLink("Inscripciones", "Index", "Inscripciones", new { }, new { @class = "btn btn-info" })</li>
-                    <li class="active">@Html.ActionLink("Lecturas", "Index", "Lecturas", new { }, new { @class = "btn btn-info" })</li>
-                    <li class="active">@Html.ActionLink("Mora de Clientes", "Index", "MoraClientes", new { }, new { @class = "btn btn-info" })</li>
-                    <li class="active">@Html.ActionLink("Pagos", "Index", "Pagoes", new { }, new { @class = "btn btn-info" })</li>
-                    <li class="active">@Html.ActionLink("Pago de Inscripciones", "Index", "PagoInscripcions", new { }, new { @class = "btn btn-info" })</li>
-                    <li class="active">@Html.ActionLink("Fechas de pago", "Index", "Tbl_Fechas", new { }, new { @class = "btn btn-info" })</li>
-                    <li class="active">@Html.ActionLink("Reporte", "PagosRealizados", "Pagoes", new { }, new { @class = "btn btn-info" })</li>
-                    </p>
-                </ul>
-                @*@Html.Partial("_LoginPartial")*@
+                        <p class="arrow alert-link">
+                        <li class="active">@Html.ActionLink(" Configuraciones ", "Index", "Configuraciones", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-cog btn-lg" })</li>
+                        <li class="active">@Html.ActionLink(" Fechas de pago ", "Index", "Tbl_Fechas", new { }, new { @class = "btn btn btn-success	glyphicon glyphicon-dashboard btn-lg" })</li>
+                        <li class="active">@Html.ActionLink(" Clientes ", "Index", "Clientes", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-user btn-lg" })</li>
+                        <li class="active">@Html.ActionLink(" Pagos ", "Index", "Pagoes", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-folder-open btn-lg" })</li>
+                        <li class="active">@Html.ActionLink(" Lecturas ", "Index", "Lecturas", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-book btn-lg" })</li>
+                        <li class="active">@Html.ActionLink(" Mora de Clientes ", "Index", "MoraClientes", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-zoom-in btn-lg" })</li>
+                        <li class="active">@Html.ActionLink(" Caja Chica ", "Index", "Cajas", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-zoom-in btn-lg" })</li>
+
+                        @*<li class="active">@Html.ActionLink(" Empleados ", "Index", "Empleadoes", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-menu-hamburger btn-lg" })</li>
+        @*<li class="active">@Html.ActionLink(" Empresas ", "Index", "Empresas", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-equalizer btn-lg" })</li>*@
+                        @*<li class="active">@Html.ActionLink(" Inscripciones ", "Index", "Inscripciones", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-pencil btn-lg" })</li>*@
+                        @*<li class="active">@Html.ActionLink(" Pago de Inscripciones ", "Index", "PagoInscripcions", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-pushpin btn-lg" })</li>*@
+                        <li class="active">@Html.ActionLink(" Reporte ", "PagosRealizados", "Pagoes", new { }, new { @class = "btn btn btn-success glyphicon glyphicon-paperclip btn-lg" })</li>
+                        @*<br />*@
+                        </p>
+                    </ul>
+                    @*@Html.Partial("_LoginPartial")*@
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year -Water_System</p>
-        </footer>
-    </div>
+        </div>
+    
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year -Water_System</p>
+            </footer>
+        </div>
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

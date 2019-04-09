@@ -3,51 +3,54 @@
 @{
     ViewBag.Title = "Index";
 }
-<br />
-<br />
-<br />
-<br />
-<h2>Moras de Clientes</h2>
+<body style="background-color:cadetblue">
+    <br />
+    <br />
+    <br />
+    <br />
+    <h2>Moras de Clientes</h2>
 
-<p>
-    @*@Html.ActionLink("Crear nuevo registro", "Create")*@
-    @Html.ActionLink("Crear nuevo registro", "Create", new { }, new { @class = "btn btn-primary" })
-</p>
-<table class="table alert-info">
-    <tr>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Meses)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Total)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Cliente.Nombre_Completo)
-        </th>
-        <th class="active alert-danger"></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <p>
+        @*@Html.ActionLink("Crear nuevo registro", "Create")*@
+        @Html.ActionLink("Crear nuevo registro", "Create", new { }, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table alert-info">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Meses)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
-            </td>
-            <td>
-                @Html.ActionLink(".", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit", @title = "Editar Cliente" })
-                |
-                @Html.ActionLink(".", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon glyphicon-open-file", @title = "Detalles" })
-                |
-                @Html.ActionLink(".", "Delete", new { id = item.Id }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Meses)
+            </th>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th class="active alert-danger">
+                Nombre Completo
+            </th>
+            <th class="active alert-danger"></th>
 
-            </td>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Meses)
+                </td>
+                <td>
+                    $  @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
+                </td>
+                <td>
+                    @Html.ActionLink(".", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit", @title = "Editar Cliente" })
+                    |
+                    @Html.ActionLink(".", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon glyphicon-open-file", @title = "Detalles" })
+                    |
+                    @Html.ActionLink(".", "Delete", new { id = item.Id }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+
+                </td>
+            </tr>
+        }
+
+    </table>
+    </body>

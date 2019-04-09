@@ -40,9 +40,9 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" /> |
-            @Html.ActionLink("Regresar", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Eliminar" class="btn btn-default" /> |
+        @Html.ActionLink(" Regresar ", "Index", new { }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon-list-alt ", @title = "Regresar a la lista" })
+    </div>
     }
 </div>

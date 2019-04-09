@@ -1,0 +1,39 @@
+﻿@model SistemWalter.ViewModel.IndexViewModel
+@{
+    var cantidadPaginas = (int)Math.Ceiling((double)Model.TotalDeRegistros / Model.RegistrosPorPagina);
+}
+
+@{
+    int Inicial = 1;
+    var radio = 2;
+    var cantidadMaximaDePaginas = radio * 2 + 1;
+    int Final = (cantidadPaginas > cantidadMaximaDePaginas) ? cantidadMaximaDePaginas : cantidadPaginas;
+    if (Model.PaginaActual > radio + 1)
+    {
+        Inicial = Model.PaginaActual - radio;
+        if (cantidadPaginas > Model.PaginaActual + radio)
+        {
+            Final = Model.PaginaActual + radio;
+        }
+        else
+        {
+            Final = cantidadPaginas;
+        }
+    }
+}
+
+<ul class="pagination">
+    <li>@Html.ActionLink("Primera", null, new { pagina = 1 })</li>
+    @for (int i = Inicial; i <= Final; i++)
+    {
+        if (i == Model.PaginaActual)
+        {
+            <li class="active">@Html.ActionLink(i.ToString(), null, new { pagina = i })</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink(i.ToString(), null, new { pagina = i })</li>
+        }
+    }
+    <li>@Html.ActionLink("Última", null, new { pagina = cantidadPaginas })</li>
+</ul>

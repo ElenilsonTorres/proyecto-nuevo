@@ -11,11 +11,18 @@ namespace SistemWalter.Context
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Tbl_Fechas
     {
         public int IdFecha { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+
         public Nullable<System.DateTime> Fecha_Pago { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+
         public Nullable<System.DateTime> Fecha_Vencimiento { get; set; }
         public Nullable<int> Mes { get; set; }
         public Nullable<int> Anio { get; set; }

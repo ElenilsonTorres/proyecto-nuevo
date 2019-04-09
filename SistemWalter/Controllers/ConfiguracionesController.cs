@@ -11,11 +11,11 @@ using SistemWalter.Context;
 namespace SistemWalter.Controllers
 {
 
-    [Authorize(Roles = "Administrador")]      //Esta linea de codigo representa las autorizaciones y roles de usuarios 
+   /* [Authorize(Roles = "Administrador")]  */    //Esta linea de codigo representa las autorizaciones y roles de usuarios 
     //co
     public class ConfiguracionesController : Controller
     {
-        private SistemadeAguaEntities db = new SistemadeAguaEntities();
+        private Sistemadeagua5Entities db = new Sistemadeagua5Entities();
 
         // GET: Configuraciones
         public ActionResult Index()

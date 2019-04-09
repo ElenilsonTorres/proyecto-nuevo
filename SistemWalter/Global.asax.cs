@@ -21,7 +21,7 @@ namespace SistemWalter
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ApplicationDbContext db = new ApplicationDbContext();
-            CreateRoles(db);
+            //CreateRoles(db);
             CreateSuperuser(db);
             AddPermisionsToSuperuser(db);
             db.Dispose();
@@ -31,17 +31,17 @@ namespace SistemWalter
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
 
-            var user = userManager.FindByName("roger_rivera@gmail.com");
+            //var user = userManager.FindByName("roger_rivera@gmail.com");
 
-            if (!userManager.IsInRole(user.Id, "Administrador"))
-            {
-                userManager.AddToRole(user.Id, "Administrador");
-            }
+            //if (!userManager.IsInRole(user.Id, "Administrador"))
+            //{
+            //    userManager.AddToRole(user.Id, "Administrador");
+            //}
 
-            if (!userManager.IsInRole(user.Id, "Cliente"))
-            {
-                userManager.AddToRole(user.Id, "Cliente");
-            }
+            //if (!userManager.IsInRole(user.Id, "Cliente"))
+            //{
+            //    userManager.AddToRole(user.Id, "Cliente");
+            //}
 
 
         }
@@ -52,33 +52,34 @@ namespace SistemWalter
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
 
 
-            var user = userManager.FindByName("roger_rivera@gmail.com");
-            if (user == null)
-            {
-                user = new ApplicationUser
-                {
-                    UserName = "roger_rivera@gmail.com",
-                    Email = "roger_rivera@gmail.com"
+            //    var user = userManager.FindByName("roger_rivera@gmail.com");
+            //    if (user == null)
+            //    {
+            //        user = new ApplicationUser
+            //        {
+            //            UserName = "roger_rivera@gmail.com",
+            //            Email = "roger_rivera@gmail.com"
 
-                };
-                userManager.Create(user, "rR_123456@");
-            }
-        }
+            //        };
+            //        userManager.Create(user, "rR_123456@");
+            //    }
+            //}
 
-        private void CreateRoles(ApplicationDbContext db)
-        {
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-            if (!roleManager.RoleExists("Administrador"))
-            {
-                roleManager.Create(new IdentityRole("Administrador"));
-            }
+            //private void CreateRoles(ApplicationDbContext db)
+            //{
+            //    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            //    if (!roleManager.RoleExists("Administrador"))
+            //    {
+            //        roleManager.Create(new IdentityRole("Administrador"));
+            //    }
 
-            if (!roleManager.RoleExists("Cliente"))
-            {
-                roleManager.Create(new IdentityRole("Cliente"));
-            }
+            //    if (!roleManager.RoleExists("Cliente"))
+            //    {
+            //        roleManager.Create(new IdentityRole("Cliente"));
+            //    }
 
 
+            //}
         }
     }
 }

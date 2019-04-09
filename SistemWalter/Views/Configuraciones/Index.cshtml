@@ -4,83 +4,86 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Configuraciones</h2>
+<body style="background-color:cadetblue">
+    <br />    <br />    <br />
+    <h2>Configuraciones</h2>
 
-<p>
-    @*@Html.ActionLink("Modificar", "Create")*@
-    @Html.ActionLink("Modificar", "Create", new { }, new { @class = "btn btn-primary" })
-</p>
-<table class="table alert-info">
-    <tr>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Couta_Fija)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Mora)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Valor_Metro)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Valor_Metro2)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Valor_Metro3)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Multa)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Detalle)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
-        <th class="active alert-danger">
-            @Html.DisplayNameFor(model => model.Fecha_Registro)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <p>
+        @*@Html.ActionLink("Modificar", "Create")*@
+        @Html.ActionLink("Modificar", "Create", new { }, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table alert-info">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Couta_Fija)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mora)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor_Metro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor_Metro2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor_Metro3)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Multa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Detalle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha_Registro)
-            </td>
-            <td>
-                @Html.ActionLink(".", "Edit", new { id = item.Id }, new {@class= "btn btn-success glyphicon glyphicon glyphicon-edit", @title ="Editar Cliente" }) 
-                        |
-                @Html.ActionLink(".", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon glyphicon-open-file", @title ="Detalles" }) 
-                        |
-                @Html.ActionLink(".", "Delete", new { id = item.Id }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
-
-            </td>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Couta_Fija)
+            </th>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Mora)
+            </th>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Valor_Metro)
+            </th>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Valor_Metro2)
+            </th>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Valor_Metro3)
+            </th>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Multa)
+            </th>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Detalle)
+            </th>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th class="active alert-danger">
+                @Html.DisplayNameFor(model => model.Fecha_Registro)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Couta_Fija)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor_Metro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor_Metro2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor_Metro3)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Multa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detalle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha_Registro)
+                </td>
+                <td>
+                    @Html.ActionLink(".", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit", @title = "Editar Cliente" })
+                    |
+                    @Html.ActionLink(".", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon glyphicon-open-file", @title = "Detalles" })
+                    |
+                    @Html.ActionLink(".", "Delete", new { id = item.Id }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+
+                </td>
+            </tr>
+        }
+
+    </table>
+    </body>

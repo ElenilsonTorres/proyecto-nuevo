@@ -7,14 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SistemWalter.Context;
-using SistemWalter.ViewModel;
 using SistemWalter.ViewModels;
 
 namespace SistemWalter.Controllers
 {
     public class ClientesController : Controller
     {
-        private SistemadeAguaEntities db = new SistemadeAguaEntities();
+        private Sistemadeagua5Entities db = new Sistemadeagua5Entities();
 
         // GET: Clientes
         public ActionResult Index( int pagina = 1)
@@ -42,12 +41,26 @@ namespace SistemWalter.Controllers
         [HttpPost]
         public ActionResult Index(string parametro)
         {
+            int pagina = 1;
+            var cantidadRegistrosPorPagina = 5;
             var clientes = (from c in db.Clientes
                             where c.Nombre_Completo.Contains(parametro)
-                            select c).ToList();
-            return View(clientes);
-        }
+                            orderby c.Id
+                            select c)
+                            .Skip((pagina - 1) * cantidadRegistrosPorPagina)
+                            .Take(cantidadRegistrosPorPagina).ToList();
+            var totalDeRegistros = clientes.Count();
 
+            var modelo = new IndexViewModel();
+            modelo.clientes = clientes;
+            modelo.PaginaActual = pagina;
+            modelo.TotalDeRegistros = totalDeRegistros;
+            modelo.RegistrosPorPagina = cantidadRegistrosPorPagina;
+
+
+            return View(modelo);
+        }
+    
         // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {
@@ -80,10 +93,11 @@ namespace SistemWalter.Controllers
             {
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
+                               
                 return RedirectToAction("Index");
+                
             }
-
-            return View(cliente);
+                     return View(cliente);
         }
 
         // GET: Clientes/Edit/5
@@ -142,6 +156,7 @@ namespace SistemWalter.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -4,9 +4,9 @@
     ViewBag.Title = "Index";
 }
 <br />
+
 <br />
-<br />
-<br />
+<body style="background-color:cadetblue">
 <h2>Lecturas</h2>
 <p id="agrege">
     @Html.ActionLink("Crear nuevo registro", "Create",new { }, new { @class = "btn btn-primary alert-link .glyphicon-glyphicon-folder-open" })
@@ -42,30 +42,30 @@
 </div>
 <br />
 <table class="table">
-    <tr>
-        <th class="active alert-danger">
+    <tr style="color:black">
+        <th >
             Lecturas
         </th>
-        <th class="active alert-danger">
+        <th >
             Estado de Lecturas
         </th>
-        <th class="active alert-danger">
+        <th>
             Estado
         </th>
-        <th class="active alert-danger">
+        <th >
             Fecha de Registros
         </th>
-        <th class="active alert-danger">
+        <th>
             Mes
         </th>
-        <th class="active alert-danger">
+        <th >
             Cliente
         </th>
-        <th class="active alert-danger"></th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr  style="color:black">
         <td>
             @Html.DisplayFor(modelItem => item.Lectura1)
         </td>
@@ -103,3 +103,4 @@
 }
 
 </table>
+    </body>

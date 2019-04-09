@@ -9,7 +9,7 @@
 <div>
     <h4>Clientse</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class=" bg-success ">
         <dt>
             @Html.DisplayNameFor(model => model.Nombre_Completo)
         </dt>
@@ -78,5 +78,5 @@
 </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Regresar", "Index")
+    @Html.ActionLink(" Regresar ", "Index", new { }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon-list-alt ", @title = "Regresar a la lista" })
 </p>

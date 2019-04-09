@@ -1,0 +1,59 @@
+﻿@model IEnumerable<SistemWalter.Context.Tbl_Fechas>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+<br />
+
+<h2>Index</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    @Html.ActionLink("Crear nuevo registro", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+<table class="table alert-info">
+    <tr class="">
+        <th class="active alert-danger">
+            @Html.DisplayNameFor(model => model.Fecha_Pago)
+        </th>
+        <th class="active alert-danger">
+            @Html.DisplayNameFor(model => model.Fecha_Vencimiento)
+        </th>
+        <th class="active alert-danger">
+            @Html.DisplayNameFor(model => model.Mes)
+        </th>
+        <th class="active alert-danger">
+            @Html.DisplayNameFor(model => model.Anio)
+        </th>
+        <th class="active alert-danger"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha_Pago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha_Vencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anio)
+            </td>
+            <td>
+                @Html.ActionLink(".", "Edit", new { id = item.IdFecha }, new { @class = "btn btn-success glyphicon glyphicon glyphicon-edit", @title = "Editar Cliente" })
+                |
+                @Html.ActionLink(".", "Details", new { id = item.IdFecha }, new { @class = "btn btn-warning glyphicon glyphicon glyphicon-open-file", @title = "Detalles" })
+                |
+                @Html.ActionLink(".", "Delete", new { id = item.IdFecha }, new { @class = " btn btn-sucess btn-danger glyphicon glyphicon glyphicon-erase", @title = "Eliminar Registro" })
+
+            </td>
+        </tr>
+    }
+
+</table>

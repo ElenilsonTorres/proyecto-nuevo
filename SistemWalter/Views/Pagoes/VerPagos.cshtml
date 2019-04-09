@@ -3,112 +3,120 @@
 @{
     ViewBag.Title = "Index";
 }
-<br />
-<br />
+<body style="background-color:cadetblue">
+    <br />
+    <br />
 
 
-<h2>Pagos</h2>
-<div class="row">
-    @*falta agregar el buscador o filtrado*@
-</div>
-
-
-
-<div class="row">
-
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th>
-                    N° Factura
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lectura_Anterior)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lectura_Actual)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Consumo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mes_Atrasado)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mora)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Total)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Fecha_Lectura)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Estado)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Fecha_Registro)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cliente.Nombre_Completo)
-                </th>
-
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Numero_Factura)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lectura_Anterior)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lectura_Actual)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Consumo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Mes_Atrasado)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Mora)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha_Lectura)
-                    </td>
-                    <td>
-                        @if (item.Estado == 0)
-                        {
-                            <font>Cancelado</font>
-                        }
-                        else
-                        {
-                            <font>Pendiente</font>
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha_Registro)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
-                    </td>
-
-                    @*Ocultar dependiendo del rol del usuario*@
-                    <td>
-                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon-usd", @title = "Asignar Pago" })
-                        @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-eye-open", @title = "Ver factura" })
-                    </td>
-                </tr>
-            }
-
-        </table>
+    <h2>Pagos</h2>
+    <div class="row">
+        @*falta agregar el buscador o filtrado*@
     </div>
 
-</div>
+
+
+    <div class="row">
+
+        <div class="table-responsive">
+            <table class="table alert-success">
+                <tr>
+                    <th>
+                        N° Factura
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cliente.Nombre_Completo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lectura_Anterior)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lectura_Actual)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Consumo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mes_Atrasado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mora)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha_Lectura)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha_Registro)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Cliente.Nombre_Completo)
+                        </th>*@
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Numero_Factura)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lectura_Anterior)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lectura_Actual)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Consumo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mes_Atrasado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mora)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Lectura)
+                        </td>
+                        <td>
+                            @if (item.Estado == 0)
+                            {
+                                <font>Cancelado</font>
+                            }
+                            else
+                            {
+                                <font>Pendiente</font>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Registro)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Cliente.Nombre_Completo)
+                            </td>*@
+
+                        @*Ocultar dependiendo del rol del usuario*@
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success glyphicon glyphicon-usd", @title = "Asignar Pago" })
+                            @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-eye-open", @title = "Ver factura" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+
+    </div>
+    </body>

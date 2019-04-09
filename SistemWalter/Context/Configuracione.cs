@@ -11,7 +11,8 @@ namespace SistemWalter.Context
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Configuracione
     {
         public int Id { get; set; }
@@ -23,6 +24,8 @@ namespace SistemWalter.Context
         public Nullable<decimal> Multa { get; set; }
         public string Detalle { get; set; }
         public Nullable<int> Estado { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Fecha_Registro { get; set; }
     }
 }

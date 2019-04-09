@@ -13,10 +13,10 @@ namespace SistemWalter.Context
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SistemadeAguaEntities : DbContext
+    public partial class Sistemadeagua5Entities : DbContext
     {
-        public SistemadeAguaEntities()
-            : base("name=SistemadeAguaEntities")
+        public Sistemadeagua5Entities()
+            : base("name=Sistemadeagua5Entities")
         {
         }
     
@@ -30,6 +30,7 @@ namespace SistemWalter.Context
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Caja> Cajas { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Configuracione> Configuraciones { get; set; }
         public virtual DbSet<Empleado> Empleados { get; set; }
@@ -39,7 +40,6 @@ namespace SistemWalter.Context
         public virtual DbSet<MoraCliente> MoraClientes { get; set; }
         public virtual DbSet<PagoInscripcion> PagoInscripcions { get; set; }
         public virtual DbSet<Pago> Pagos { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tbl_Fechas> Tbl_Fechas { get; set; }
     }
 }

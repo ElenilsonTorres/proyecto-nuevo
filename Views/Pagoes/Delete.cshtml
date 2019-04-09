@@ -1,0 +1,136 @@
+﻿@model SistemWalter.Context.Pago
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Estas seguro de eliminar este registro?</h3>
+<div>
+    <h4>Pagos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero_Factura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero_Factura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lectura_Anterior)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lectura_Anterior)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lectura_Actual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lectura_Actual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Consumo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Consumo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cuota_Fija)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cuota_Fija)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mes_Atrasado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mes_Atrasado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Lectura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Lectura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Pago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Pago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Registro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Registro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Nombre_Completo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Nombre_Completo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lectura.Estado_Lectura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lectura.Estado_Lectura)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
+        </div>
+    }
+</div>
